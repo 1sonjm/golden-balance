@@ -1,18 +1,20 @@
 /* eslint-disable semi */
 <template>
-	<TopMenu/>
+	<Header/>
 	<div id="contentView" class="contentWidthLimit">
 		<router-view/>
 	</div>
+	<Footer/>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, onBeforeMount } from 'vue'
 import http from '@/plugins/axios'
-import TopMenu from '@/views/Header.vue'
+import Header from '@/views/layout/Header.vue'
+import Footer from '@/views/layout/Footer.vue'
 
 export default defineComponent({
-	components: { TopMenu },
+	components: { Header, Footer },
 	setup() {
 		onBeforeMount(async () => {
 			const result = await http.get('//dapi.kakao.com/v2/maps/sdk.js?appkey=c5808bc6799339d530a22b9c04125371')
