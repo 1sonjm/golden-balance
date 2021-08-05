@@ -1,12 +1,7 @@
 <template>
-	<div>
-		<ul>
-			<li
-				v-for="content in contentList"
-				:key="content.contentID">
-				<SimpleContentForm :content="content"/>
-			</li>
-		</ul>
+	<div class="simpleContentForm">
+		<span>컨텐츠 항목</span>
+		{{ content.name }}
 	</div>
 </template>
 
@@ -21,26 +16,15 @@ export default defineComponent({
 	name: 'SimpleContentForm',
 	components: {},
 	props: {
-		// content: {
-		// 	contentID: String,
-		// 	name: String,
-		// },
+		content: Object,
 	},
 	setup(props) {
-		console.log(props)
-		const now = ref(dayjs())
-		const contentList = ref([
-			{ contentID: '1111', name: 'aa' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1113', name: 'Cc' },
-		])
-		return { now, contentList }
+		return { }
 	},
 })
 </script>
 
-<style lang="scss" scoped>
-div{
-	width:300px;
+<style lang="scss">
+.simpleContentForm{
 }
 </style>

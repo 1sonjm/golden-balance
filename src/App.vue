@@ -9,19 +9,17 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onBeforeMount } from 'vue'
-import http from '@/plugins/axios'
 import Header from '@/views/layout/Header.vue'
 import Footer from '@/views/layout/Footer.vue'
 
 export default defineComponent({
 	components: { Header, Footer },
 	setup() {
-		onBeforeMount(async () => {
-			const result = await http.get('//dapi.kakao.com/v2/maps/sdk.js?appkey=c5808bc6799339d530a22b9c04125371')
-			console.log('api!!!!!!!!!', result)
-		})
+		// onBeforeMount(async () => {
+		// 	console.log('onBeforeMount')
+		// })
 
-		onMounted(() => console.log('mounted app'))
+		// onMounted(() => console.log('mounted app'))
 	},
 })
 </script>
@@ -53,16 +51,21 @@ html, body{
 	position: relative;
 	margin: auto;
 	height: 100%;
+	width: 100%;
 	font-size: 14px;
 	background: url('~@/assets/icon/background-pattern.png');
 	overflow-y: auto;
 	#contentView{
+		width: 100%;
 		position: relative;
 		background: #f1f1f1;
 	}
 }
-.contentWidthLimit{
-	max-width: 42rem;
-	margin: auto;
+
+@media screen and (max-width: 1080px) {
+	.contentWidthLimit{
+		max-width: 42rem;
+		margin: auto;
+	}
 }
 </style>

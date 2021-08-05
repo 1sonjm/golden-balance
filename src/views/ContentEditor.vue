@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="ContentEditor">
 		<TitleArea :editable="true"/>
 		<div>
 			<MiniMap/>
@@ -29,7 +29,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div{
+#ContentEditor{
 	width:300px;
 }
 </style>

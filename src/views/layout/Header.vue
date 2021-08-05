@@ -18,7 +18,7 @@
 
 				<ul class="dropdown__items menuList">
 					<li><router-link to="/">Home</router-link></li>
-					<li><router-link to="/about">About1</router-link></li>
+					<li><router-link to="/list">list</router-link></li>
 					<li><router-link to="/about">About2</router-link></li>
 					<li><router-link to="/about">About3</router-link></li>
 					<li><router-link to="/about">About4</router-link></li>
@@ -58,6 +58,7 @@ export default class Home extends Vue {}
 header{
 	background: #666;
 	#header{
+		width: 100%;
 		position: relative;
 		.logo{
 			background: url('~@/assets/logo.png') no-repeat;

@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="ContentViewer">
 		<TitleArea/>
 		<div>
 			<MiniMap/>
@@ -37,7 +37,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-div{
+#ContentViewer{
 	width:300px;
 }
 </style>
