@@ -1,5 +1,5 @@
 import { GetterTree } from 'vuex'
-import { User } from './state'
+import { User } from '@/@types/user'
 
 export type Getters = {
 	getInfo(state: User): User

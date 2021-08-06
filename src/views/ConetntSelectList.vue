@@ -12,8 +12,9 @@
 import ContentList from '@/components/content/ContentList.vue'
 
 import {
-	defineComponent, computed, ref,
+	defineComponent, computed, ref, Ref,
 } from 'vue'
+import { Content } from '@/@types/content'
 
 export default defineComponent({
 	name: 'ConetntSelectList',
@@ -24,17 +25,17 @@ export default defineComponent({
 	},
 	setup(props) {
 		const contentList = ref([
-			{ contentID: '1111', name: 'aa' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1112', name: 'bb' },
-			{ contentID: '1113', name: 'Cc' },
-			{ contentID: '1113', name: 'Cc' },
-			{ contentID: '1113', name: 'Cc' },
-			{ contentID: '1113', name: 'Cc' },
-		])
+			{ id: '1111', name: 'aa', showResult: true },
+			{ id: '1112', name: 'bb', showResult: true },
+			{ id: '1112', name: 'bb', showResult: true },
+			{ id: '1112', name: 'bb', showResult: true },
+			{ id: '1112', name: 'bb', showResult: false },
+			{ id: '1112', name: 'bb', showResult: false },
+			{ id: '1113', name: 'Cc', showResult: false },
+			{ id: '1113', name: 'Cc', showResult: true },
+			{ id: '1113', name: 'Cc', showResult: true },
+			{ id: '1113', name: 'Cc', showResult: true },
+		]) as Ref<Content[]>
 		return { contentList }
 	},
 })

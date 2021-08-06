@@ -1,25 +1,47 @@
 <template>
-	<div class="simpleContentForm">
-		<span>컨텐츠 항목</span>
-		{{ content.name }}
+	<div
+		class="simpleContentForm"
+		@click="moveToContent">
+		<div>
+			썸네일
+		</div>
+		<div class="contentInfo">
+			<p>{{ content.name }}</p>
+			<div class="detail">
+				<p></p>
+				<p>{{ content.entryCount }}</p>
+				<p>{{ content.updateDate }}</p>
+			</div>
+		</div>
+		<div>
+			<button>공유</button>
+			<button v-if="content.showResult">결과</button>
+		</div>
 	</div>
 </template>
 
 <script lang="ts">
 
 import {
-	defineComponent, computed, ref,
+	defineComponent, PropType, computed, ref,
 } from 'vue'
 import dayjs from 'dayjs'
+import { Content } from '@/@types/content'
 
 export default defineComponent({
 	name: 'SimpleContentForm',
 	components: {},
 	props: {
-		content: Object,
+		content: {
+			type: Object as PropType<Content>,
+			required: true,
+		},
 	},
 	setup(props) {
-		return { }
+		const moveToContent = () => {
+			console.log(props.content.id)
+		}
+		return { moveToContent }
 	},
 })
 </script>

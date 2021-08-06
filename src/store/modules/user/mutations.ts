@@ -1,5 +1,5 @@
 import { MutationTree } from 'vuex'
-import { User } from './state'
+import { User } from '@/@types/user'
 
 export enum MutationType {
 	CreateUserInfo = 'CreateUserInfo',

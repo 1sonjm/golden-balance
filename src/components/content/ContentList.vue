@@ -4,7 +4,9 @@
 			<li
 				v-for="content in contentList"
 				:key="content.contentID">
-				<SimpleContentForm :name="content.name" :content="content"/>
+				<SimpleContentForm
+					:name="content.name"
+					:content="content"/>
 			</li>
 		</ul>
 	</div>
@@ -46,8 +48,8 @@ export default defineComponent({
 		flex-flow: row wrap;
 		align-content: flex-end;
 		li{
+			cursor: pointer;
 			display: inline-block;
-			display: box;
 			width: 33.3%;
 		}
 	}

@@ -1,6 +1,6 @@
 import { ActionContext, ActionTree } from 'vuex'
 import { Mutations, MutationType } from './mutations'
-import { User } from './state'
+import { User } from '@/@types/user'
 
 export enum ActionTypes {
 	UpdateUserInfo = 'UpdateUserInfo',
