@@ -42,10 +42,16 @@ export default defineComponent({
 	color: #2c3e50;
 }
 html, body{
+	position: relative;
 	height: 100%;
 	padding: 0;
 	margin: 0;
 	text-align: center;
+}
+ul, li, p{
+	position: relative;
+	padding: 0;
+	margin: 0;
 }
 #app{
 	position: relative;

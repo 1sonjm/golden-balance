@@ -25,7 +25,12 @@ export default defineComponent({
 	},
 	setup(props) {
 		const contentList = ref([
-			{ id: '1111', name: 'aa', showResult: true },
+			{
+				id: '1111',
+				name: 'aa',
+				description: 'asdfasdf qwe rqwe dfzdf q werq wejpro q2j3opjr 2oi jo rhsdifhp wqhp rohqwepohsdop fihawpoehqwopei hfqpof2 h3o2 h23 2',
+				showResult: true,
+			},
 			{ id: '1112', name: 'bb', showResult: true },
 			{ id: '1112', name: 'bb', showResult: true },
 			{ id: '1112', name: 'bb', showResult: true },

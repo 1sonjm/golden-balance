@@ -18,6 +18,7 @@ import SimpleContentForm from '@/components/content/SimpleContentForm.vue'
 import {
 	defineComponent, computed, ref,
 } from 'vue'
+import { useLogger } from 'vue-logger-plugin'
 
 export default defineComponent({
 	name: 'ContentList',
@@ -26,7 +27,9 @@ export default defineComponent({
 		contentList: Array,
 	},
 	setup(props) {
-		return { }
+		const log = useLogger()
+		log.info('컨텐츠 리스트', props.contentList)
+		return { log }
 	},
 })
 </script>

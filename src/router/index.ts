@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
 		name: 'ConetntSelectList',
 		component: () => import('../views/ConetntSelectList.vue'),
 	},
+	{
+		path: '/list/content',
+		name: 'ContentViewer',
+		component: () => import('../views/ContentViewer.vue'),
+	},
 ]
 
 const router = createRouter({
