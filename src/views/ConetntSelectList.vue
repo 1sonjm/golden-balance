@@ -15,6 +15,7 @@ import {
 	defineComponent, computed, ref, Ref,
 } from 'vue'
 import { Content } from '@/@types/content'
+import { useLogger } from 'vue-logger-plugin'
 
 export default defineComponent({
 	name: 'ConetntSelectList',
@@ -23,25 +24,23 @@ export default defineComponent({
 		countlimit: Number,
 		order: String,
 	},
-	setup(props) {
-		const contentList = ref([
-			{
-				id: '1111',
-				name: 'aa',
-				description: 'asdfasdf qwe rqwe dfzdf q werq wejpro q2j3opjr 2oi jo rhsdifhp wqhp rohqwepohsdop fihawpoehqwopei hfqpof2 h3o2 h23 2',
-				showResult: true,
-			},
-			{ id: '1112', name: 'bb', showResult: true },
-			{ id: '1112', name: 'bb', showResult: true },
-			{ id: '1112', name: 'bb', showResult: true },
-			{ id: '1112', name: 'bb', showResult: false },
-			{ id: '1112', name: 'bb', showResult: false },
-			{ id: '1113', name: 'Cc', showResult: false },
-			{ id: '1113', name: 'Cc', showResult: true },
-			{ id: '1113', name: 'Cc', showResult: true },
-			{ id: '1113', name: 'Cc', showResult: true },
-		]) as Ref<Content[]>
-		return { contentList }
+	setup() {
+		const log = useLogger()
+		// 개발 변수 설정하기
+		// https://cli.vuejs.org/guide/mode-and-env.html#environment-variables
+		// https://joshua1988.github.io/vue-camp/deploy/env-setup.html#vue-cli-3-x-%EB%B2%84%EC%A0%84%EC%9D%98-%ED%99%98%EA%B2%BD-%EB%B3%80%EC%88%98-%ED%8C%8C%EC%9D%BC-%EC%A0%91%EA%B7%BC
+		const contentList = ref([]) as Ref<Content[]>
+		fetch(VUE_APP_API_URL + '/api/contentList')
+			.then((response) => response.json())
+			.then((result) => {
+				contentList.value = result.data
+				log.info(contentList.value)
+			})
+
+		return {
+			log,
+			contentList,
+		}
 	},
 })
 </script>
