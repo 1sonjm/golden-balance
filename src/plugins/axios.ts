@@ -1,5 +1,9 @@
 import axios, { AxiosInstance } from 'axios'
 import store from '@/store'
+import { useLogger } from 'vue-logger-plugin'
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const log = useLogger()
 
 const apiClient: AxiosInstance = axios.create({
 	// baseURL: 'http://localhost:8080/api',
@@ -12,6 +16,7 @@ const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
 	(config) => {
 		store.commit('ToggleLoading', true)
+		console.info('aaaaaaaaaaaaaaaaaaaaa')
 		return config
 	},
 	(error) => Promise.reject(error),
@@ -28,4 +33,10 @@ apiClient.interceptors.response.use(
 	},
 )
 
+// API_PATH
+const API = {
+	CONTENT_LIST: '/api/contentList',
+}
+
 export default apiClient
+export { apiClient, API }
