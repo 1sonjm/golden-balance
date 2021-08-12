@@ -1,5 +1,5 @@
 <template>
-	<div id="ConetntSelectList">
+	<div id="conetntSelectList">
 		<div>
 			<input type="text" name="" id="">
 			<button>검색</button>
@@ -31,7 +31,7 @@ export default defineComponent({
 		const contentList = ref([]) as Ref<Content[]>
 		apiClient.get(process.env.VUE_APP_API_URL + API.CONTENT_LIST)
 			.then((result) => {
-				contentList.value = result.data
+				contentList.value = result.data.list
 				log.info(contentList.value)
 			})
 

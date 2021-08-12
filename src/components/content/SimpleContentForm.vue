@@ -2,28 +2,30 @@
 	<div
 		class="simpleContentForm"
 		@click="moveToContent">
-		<div>
-			썸네일
+		<div class="thumbnail">
+			<img :src="content.thumbnailURL">
 		</div>
 		<div
 		class="contentInfo"
 		:class="{ showDescription: isShowDescription }">
-			<p>{{ content.name }}</p>
 			<div class="detail">
-				<p class="title"></p>
+				<p class="title">
+					{{ content.name }}
+				</p>
 				<p
 					class="description"
 					@mouseover="overDescription(true)"
 					@mouseleave="overDescription(false)">
 					설명 {{ content.description }}
 				</p>
-				<p>
-					<span>수정일 {{ content.updateDate }}</span>
-					<span>뷰카운트{{ content.viewCount }}</span>
+				<p class="summary">
+					<span class="updateDate"><font-awesome-icon icon="edit"/>{{ formatedDate }}</span>
+					<span><font-awesome-icon icon="eye"/>{{ content.viewCount }}</span>
+					<span><font-awesome-icon icon="trophy"/>{{ content.compareCount }}</span>
 				</p>
 			</div>
 		</div>
-		<div>
+		<div class="buttonGroup">
 			<button>공유</button>
 			<button v-if="content.showResult">결과</button>
 		</div>
@@ -38,6 +40,7 @@ import {
 import { useLogger } from 'vue-logger-plugin'
 import { useRouter } from 'vue-router'
 import { Content } from '@/@types/content'
+import dayjs from 'dayjs'
 
 export default defineComponent({
 	name: 'SimpleContentForm',
@@ -54,6 +57,8 @@ export default defineComponent({
 		const moveToContent = () => {
 			router.push({ path: '/list/content', query: { id: 111 } })
 		}
+
+		const formatedDate = computed(() => dayjs(props.content.updateDate).format('YYYY.MM.DD hh:mm'))
 
 		// 설명항목 확장 on / off
 		const isShowDescription = ref(false)
@@ -72,6 +77,8 @@ export default defineComponent({
 		}
 		return {
 			log,
+			moveToContent,
+			formatedDate,
 			overDescription,
 			isShowDescription,
 		}
@@ -80,10 +87,26 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "@/scss/_mixin";
+
 .simpleContentForm{
+	padding: 1em;
+	position: relative;
+	background: $color-content-background;
+	.thumbnail{
+		img{
+			aspect-ratio: 16 / 9;
+			width: 100%;
+			height: 100%;
+		}
+	}
 	.contentInfo{
 		.detail{
 			position: relative;
+			.title{
+				font-weight: bold;
+				font-size: 1.2em;
+			}
 			.description{
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -91,6 +114,18 @@ export default defineComponent({
 				display: block;
 				white-space: nowrap;
 				width: 100%;
+				padding-bottom: 0.5em;
+			}
+			.summary{
+				padding-top: 0.5em;
+				border-top: 1px solid #999;
+				display: flex;
+				span{
+					flex: 1 1 0;
+					&.updateDate{
+						flex-basis: 5em;
+					}
+				}
 			}
 		}
 		&.showDescription{
@@ -100,13 +135,13 @@ export default defineComponent({
 				}
 				.description{
 					position: absolute;
-					left: 0;
-					top: -1.2em;
+					left: -0.3em;
+					top: 0;
 					white-space: unset;
 					z-index: 1;
 					height: fit-content;
 					border-radius: 5px;
-					box-shadow: 0.2em 0.4em 0.5em rgba(0, 0, 0, 0.1);
+					box-shadow: 0 0.3em 0.5em rgba(0, 0, 0, 0.2);
 					animation: moveDown 0.2s;
 					animation-fill-mode: forwards;
 				}
@@ -114,11 +149,34 @@ export default defineComponent({
 					0% {}
 					100% {
 						background-color: rgb(230, 230, 230);
-						padding: 0.5em;
+						padding: 0.4em;
 					}
 				}
 			}
 		}
+	}
+	.buttonGroup{
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}
+
+@include tablet-inherit {
+  .contentInfo{
+    .summary{
+      span{
+				svg{
+					display: block;
+					margin: auto;
+				}
+      }
+    }
+  }
+	.buttonGroup{
+		position: relative;
+		top: unset;
+		right: unset;
 	}
 }
 </style>

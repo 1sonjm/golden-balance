@@ -10,6 +10,7 @@ export type Common = {
 	isLoading: boolean,
 	locale: Locale,
 	location: Location,
+	isDarkMode: boolean,
 }
 
 export const state: Common = {
@@ -19,4 +20,5 @@ export const state: Common = {
 		latitude: 37.566280592758005,
 		longitude: 126.97797791533893,
 	},
+	isDarkMode: false,
 }

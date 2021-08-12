@@ -1,11 +1,8 @@
 <template>
-	<header>
-		<div id="header" class="contentWidthLimit">
-			<router-link to="/" class="logo"></router-link>
-			<!-- <div id="menu">
-				<ul class="menuList">
-				</ul>
-			</div> -->
+	<header
+		id="header"
+		class="contentWidthLimit">
+		<section class="menu">
 			<div class="dropdown">
 				<input type="checkbox" id="dropdown">
 				<label class="dropdown__face" for="dropdown">
@@ -13,7 +10,7 @@
 				</label>
 
 				<div class="dropdown__items search">
-					<SearchBar></SearchBar>
+					<SearchBar/>
 				</div>
 
 				<ul class="dropdown__items menuList">
@@ -38,40 +35,74 @@
 					</filter>
 				</svg>
 			</div>
-		</div>
+
+			<router-link to="/" class="logo"></router-link>
+
+			<div class="darkSwitch">
+				<DarkmodeSwitch/>
+			</div>
+		</section>
+		<hr class="menuLine">
 	</header>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
 import SearchBar from '@/components/SearchBar.vue'
+import DarkmodeSwitch from '@/components/DarkmodeSwitch.vue'
 
-@Options({
+import {
+	defineComponent, computed, ref,
+} from 'vue'
+import { useLogger } from 'vue-logger-plugin'
+
+export default defineComponent({
+	name: 'template',
 	components: {
 		SearchBar,
+		DarkmodeSwitch,
+	},
+	props: {
+	},
+	setup(props) {
+		const log = useLogger()
+
+		return {
+			log,
+		}
 	},
 })
-export default class Home extends Vue {}
 </script>
 
 <style lang="scss">
-header{
-	background: #666;
-	#header{
-		width: 100%;
-		position: relative;
+@import "@/scss/_mixin";
+
+#header{
+	background: $color-base-background;
+	width: 100%;
+	position: relative;
+	.menu{
+		display: flex;
+		justify-content: center;
+		padding-top: 0.2em;
 		.logo{
-			background: url('~@/assets/logo.png') no-repeat;
+			background: url('~@/assets/logo.png') no-repeat center center;
 			display: block;
 			width: 30%;
 			height: 3rem;
 			cursor: pointer;
 			margin: auto;
 		}
+		.darkSwitch{
+			margin-right: 1em;
+		}
 	}
+	.menuLine{
+		width: calc(100% - 2em);
+		margin-top: 0.2em;
+	}
+
 	.dropdown {
 		z-index: 1;
-		position: absolute;
 		width: 80px;
 		left: 0;
 		top: 0;

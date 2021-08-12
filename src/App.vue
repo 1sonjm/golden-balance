@@ -25,6 +25,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "@/scss/_mixin";
+
 @font-face {
 	font-family: 'MapoBackpacking';
 	src: url('../public/font/mapo/MapoBackpacking.woff2');
@@ -59,18 +61,18 @@ ul, li, p{
 	height: 100%;
 	width: 100%;
 	font-size: 14px;
-	background: url('~@/assets/icon/background-pattern.png');
+	background-color: $color-base-background;
 	overflow-y: auto;
 	#contentView{
 		width: 100%;
 		position: relative;
-		background: #f1f1f1;
+		background: $color-base-background;
 	}
 }
 
 @media screen and (max-width: 1080px) {
 	.contentWidthLimit{
-		max-width: 42rem;
+		max-width: 720px;
 		margin: auto;
 	}
 }

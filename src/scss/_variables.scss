@@ -1,0 +1,15 @@
+// Breakpoints
+$breakpoint-mobile: 360px;
+$breakpoint-tablet: 720px;
+$breakpoint-desktop: 1024px;
+
+// Color
+$color-point-primary: rgb(140,78,43);
+$color-point-primary-lighten: rgb(191,135,86);
+$color-point-base: rgb(190,204,216);
+$color-point-secondary-lighten: rgb(134,151,165);
+$color-point-secondary: rgb(81,96,140);
+
+$color-base-border: rgb(100, 100, 100);
+$color-base-background: rgb(250, 250, 250);
+$color-content-background: darken($color-base-background, 5%);

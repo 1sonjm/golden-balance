@@ -1,5 +1,5 @@
 <template>
-	<div id="ContentViewer">
+	<div id="contentViewer">
 		<TitleArea/>
 		<div>
 			<MiniMap/>
@@ -16,10 +16,12 @@ import CompaerContent from '@/components/content/CompaerContent.vue'
 import {
 	defineComponent, computed, ref,
 } from 'vue'
-import dayjs from 'dayjs'
+import { apiClient, API } from '@/plugins/axios'
+import { Content } from '@/@types/content'
+import { useLogger } from 'vue-logger-plugin'
 
 export default defineComponent({
-	name: 'ContentEditor',
+	name: 'ContentViewer',
 	components: {
 		TitleArea,
 		MiniMap,
@@ -29,15 +31,18 @@ export default defineComponent({
 		id: { type: Number, required: true },
 	},
 	setup(props) {
-		console.log(props)
-		const now = ref(dayjs())
-		return { now }
+		const log = useLogger()
+
+		apiClient.get(process.env.VUE_APP_API_URL + API.CONTENT_DETAIL)
+			.then((result) => {
+				log.info(result)
+			})
+		return {
+			log,
+		}
 	},
 })
 </script>
 
 <style lang="scss" scoped>
-#ContentViewer{
-	width:300px;
-}
 </style>

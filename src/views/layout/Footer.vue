@@ -1,5 +1,5 @@
 <template>
-	<div></div>
+	<div id="footer"></div>
 </template>
 
 <script lang="ts">
@@ -13,4 +13,5 @@ export default class Home extends Vue {}
 </script>
 
 <style lang="scss">
+@import "@/scss/_mixin";
 </style>

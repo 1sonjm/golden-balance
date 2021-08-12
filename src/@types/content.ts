@@ -7,4 +7,6 @@ export type Content = {
   updateDate: Date
   updateUser: User
   entryCount: number
+  compareCount: number
+  thumbnailURL: string
 }

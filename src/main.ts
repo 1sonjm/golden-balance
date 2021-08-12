@@ -22,6 +22,6 @@ app.use(router)
 	.use(i18n)
 	.use(VCalendar)
 
-app.component('FontAwesomeIcon', FontAwesomeIcon)
+app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')

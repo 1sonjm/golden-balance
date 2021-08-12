@@ -7,17 +7,32 @@
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component'
 import HelloWorld from '@/components/HelloWorld.vue'
 
-@Options({
+import {
+	defineComponent, ref,
+} from 'vue'
+import { useLogger } from 'vue-logger-plugin'
+import dayjs from 'dayjs'
+
+export default defineComponent({
+	name: 'Home',
 	components: {
 		HelloWorld,
 	},
+	props: {
+	},
+	setup(props) {
+		const log = useLogger()
+		const now = ref(dayjs())
+
+		return {
+			log,
+			now,
+		}
+	},
 })
-export default class Home extends Vue {}
 </script>
 
 <style lang="scss">
-
 </style>

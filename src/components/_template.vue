@@ -26,4 +26,16 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
+@import "@/scss/_mixin";
+
+@include tablet {
+  #template{
+		font-size: 1em;
+	}
+}
+@include mobile {
+  #template{
+		font-size: 1em;
+	}
+}
 </style>

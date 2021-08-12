@@ -5,6 +5,8 @@ import {
 	faEye,
 	faTimes,
 	faTrash,
+	faBalanceScale,
+	faTrophy,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -12,6 +14,8 @@ library.add(
 	faTrash,
 	faEdit,
 	faTimes,
+	faBalanceScale,
+	faTrophy,
 )
 
 export default FontAwesomeIcon

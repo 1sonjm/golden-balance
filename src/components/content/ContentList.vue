@@ -5,7 +5,6 @@
 				v-for="content in contentList"
 				:key="content.contentID">
 				<SimpleContentForm
-					:name="content.name"
 					:content="content"/>
 			</li>
 		</ul>

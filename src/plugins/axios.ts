@@ -16,7 +16,6 @@ const apiClient: AxiosInstance = axios.create({
 apiClient.interceptors.request.use(
 	(config) => {
 		store.commit('ToggleLoading', true)
-		console.info('aaaaaaaaaaaaaaaaaaaaa')
 		return config
 	},
 	(error) => Promise.reject(error),
@@ -36,6 +35,7 @@ apiClient.interceptors.response.use(
 // API_PATH
 const API = {
 	CONTENT_LIST: '/api/contentList',
+	CONTENT_DETAIL: '/api/contentDetail',
 }
 
 export default apiClient
