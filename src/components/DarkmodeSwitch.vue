@@ -5,8 +5,12 @@
 			for="darkMode"
 			@click="toggleDarkMode">
 			<div class="image">
-				<i class="sun">해</i>
-				<i class="moon">달</i>
+				<i class="sun">
+					<img src="@/assets/icon/svg/sun.svg"/>
+				</i>
+				<i class="moon">
+					<img src="@/assets/icon/svg/moon.svg"/>
+				</i>
 				<!-- <div>달</div> -->
 				<div class="lineBox">
 					<div class="line"></div>
@@ -48,26 +52,36 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "@/scss/_variables";
 
+@mixin up {
+	opacity: 1;
+	top: 2px;
+}
+@mixin down {
+	opacity: 0;
+	top: 15px;
+}
+
 #darkModeSwitch{
 	width: 2.5em;
 	height: 100%;
+	max-height: 2.5em;
 	position: relative;
 	[name="isDarkMode"]{
 		display: none;
 	}
 	[name="isDarkMode"] + label{
 		cursor: pointer;
+		width: 100%;
+		height: 100%;
 		.sun{
 			transition: 0.5s ease;
 			transition-property: opacity top;
-			opacity: 1;
-			top: 0;
+			@include up
 		}
 		.moon{
 			transition: 0.5s ease;
 			transition-property: opacity top;
-			opacity: 0;
-			top: 20px;
+			@include down
 		}
 		.image{
 			position: relative;
@@ -76,6 +90,19 @@ export default defineComponent({
 			i{
 				display: block;
 				position: absolute;
+				width: 100%;
+				&.sun{
+					filter: invert(.5) sepia(1) saturate(5) hue-rotate(0deg);
+					img{
+						width: 57%;
+					}
+				}
+				&.moon{
+					filter: invert(.5) sepia(1) saturate(4) hue-rotate(175deg);
+					img{
+						width: 47%;
+					}
+				}
 			}
 			.lineBox{
 				bottom: 0;
@@ -85,13 +112,13 @@ export default defineComponent({
 				padding-bottom: 0.3em;
 				.line{
 					display: block;
-					background: $color-base-border;
-					height: 0.25em;
-					border-radius: 1em;
+					background: $color-point-secondary;
+					height: 2px;
+					border-radius: 5px;
 					margin: auto;
 					&:nth-child(1){
-						width: 80%;
-						margin-bottom: 0.25em;
+						width: 70%;
+						margin-bottom: 3px;
 					}
 					&:nth-child(2){
 						width: 40%;
@@ -102,12 +129,10 @@ export default defineComponent({
 	}
 	[name="isDarkMode"]:checked + label{
 		.sun{
-			opacity: 0;
-			top: 20px;
+			@include down
 		}
 		.moon{
-			opacity: 1;
-			top: 0;
+			@include up
 		}
 	}
 }

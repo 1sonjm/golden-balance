@@ -93,6 +93,9 @@ export default defineComponent({
 			margin: auto;
 		}
 		.darkSwitch{
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			margin-right: 1em;
 		}
 	}
