@@ -36,16 +36,16 @@
 }
 @mixin brightness-light{
   &.lightMode{
+    @include brightness-transition;
     background-color: $color-base-light;
     color: $color-reverse-light;
-    @include brightness-transition;
   }
 }
 @mixin brightness-dark{
   &.darkMode{
+    @include brightness-transition;
     background-color: $color-base-dark;
     color: $color-reverse-dark;
-    @include brightness-transition;
   }
 }
 @mixin brightness-transition{

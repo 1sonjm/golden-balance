@@ -163,16 +163,12 @@ export default defineComponent({
 #appWrap{
 	&.lightMode{
 		.simpleContentForm{
-			@include brightness-transition;
-			background-color: $color-base-light;
-			color: $color-reverse-light;
+			@include brightness-light;
 		}
 	}
 	&.darkMode{
 		.simpleContentForm{
-			@include brightness-transition;
-			background-color: $color-base-dark;
-			color: $color-reverse-dark;
+			@include brightness-dark;
 		}
 	}
 }
