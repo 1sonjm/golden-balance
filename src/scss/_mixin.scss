@@ -29,3 +29,26 @@
     @content;
   }
 }
+
+@mixin brightness-toggle{
+  @include brightness-light;
+  @include brightness-dark;
+}
+@mixin brightness-light{
+  &.lightMode{
+    background-color: $color-base-light;
+    color: $color-reverse-light;
+    @include brightness-transition;
+  }
+}
+@mixin brightness-dark{
+  &.darkMode{
+    background-color: $color-base-dark;
+    color: $color-reverse-dark;
+    @include brightness-transition;
+  }
+}
+@mixin brightness-transition{
+  transition: 0.8s ease;
+  transition-property: background-color color;
+}

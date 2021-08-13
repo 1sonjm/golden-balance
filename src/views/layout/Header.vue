@@ -77,7 +77,6 @@ export default defineComponent({
 @import "@/scss/_mixin";
 
 #header{
-	background: $color-base-background;
 	width: 100%;
 	position: relative;
 	.menu{

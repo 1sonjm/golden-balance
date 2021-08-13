@@ -2,7 +2,9 @@
 	<div id="home">
 		<img alt="Vue logo" src="../assets/logo.png">
 		<HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
-		<KakaoMap/>
+		<HelloWorld msg="Welcome to Your Vue.js + 2222 App"/>
+		<HelloWorld msg="Welcome to Your Vue.js + 333 App"/>
+		<HelloWorld msg="Welcome to Your Vue.js + 444 App"/>
 	</div>
 </template>
 

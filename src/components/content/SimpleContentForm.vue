@@ -92,7 +92,6 @@ export default defineComponent({
 .simpleContentForm{
 	padding: 1em;
 	position: relative;
-	background: $color-content-background;
 	.thumbnail{
 		img{
 			aspect-ratio: 16 / 9;
@@ -161,7 +160,22 @@ export default defineComponent({
 		top: 0;
 	}
 }
-
+#appWrap{
+	&.lightMode{
+		.simpleContentForm{
+			@include brightness-transition;
+			background-color: $color-base-light;
+			color: $color-reverse-light;
+		}
+	}
+	&.darkMode{
+		.simpleContentForm{
+			@include brightness-transition;
+			background-color: $color-base-dark;
+			color: $color-reverse-dark;
+		}
+	}
+}
 @include tablet-inherit {
   .contentInfo{
     .summary{

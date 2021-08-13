@@ -108,7 +108,7 @@ export default defineComponent({
 				bottom: 0;
 				position: absolute;
 				width: 100%;
-				background-color: $color-base-background;
+				z-index: 1;
 				padding-bottom: 0.3em;
 				.line{
 					display: block;
@@ -135,6 +135,8 @@ export default defineComponent({
 			@include up
 		}
 	}
+}
+.darkMode{
 }
 
 </style>
