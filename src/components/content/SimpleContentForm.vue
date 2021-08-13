@@ -27,12 +27,12 @@
 		</section>
 		<section class="buttonGroup">
 			<button @click="share">
-				<font-awesome-icon icon="share-alt"/>공유
+				<font-awesome-icon icon="share-alt"/>
+				<span>공유</span>
 			</button>
-			<button
-				v-if="content.showResult"
-				@click="showResult">
-				<font-awesome-icon icon="chart-pie"/>결과
+			<button @click="showResult">
+				<font-awesome-icon icon="chart-pie"/>
+				<span>결과</span>
 			</button>
 		</section>
 	</div>
@@ -61,11 +61,11 @@ export default defineComponent({
 		const log = useLogger()
 		const router = useRouter()
 		const moveToContent = () => {
-			router.push({ path: '/content/view', query: { id: 111 } })
+			router.push({ path: '/content/view', query: { id: props.content.id } })
 		}
 
 		const showResult = () => {
-			router.push({ path: '/content/result', query: { id: 111 } })
+			router.push({ path: '/content/result', query: { id: props.content.id } })
 		}
 
 		const formatedDate = computed(() => dayjs(props.content.updateDate).format('YYYY.MM.DD hh:mm'))
@@ -104,10 +104,12 @@ export default defineComponent({
 	padding: 1em;
 	position: relative;
 	.thumbnail{
+		position: relative;
 		img{
 			aspect-ratio: 16 / 9;
 			width: 100%;
 			height: 100%;
+			border-radius: 0.5em;
 		}
 	}
 	.contentInfo{
@@ -172,6 +174,20 @@ export default defineComponent({
 		position: absolute;
 		right: 0;
 		top: 0;
+		button{
+			border: none;
+			border-radius: 0.3em;
+			width: 2em;
+			height: 1.7em;
+			background-color: lighten($color-reverse-light, 30%);
+			color: $color-base-light;
+			&:not(:last-child){
+				margin-right: 0.2em;
+			}
+			span{
+				display: none;
+			}
+		}
 	}
 }
 #appWrap{

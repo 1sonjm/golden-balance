@@ -22,7 +22,7 @@ export default defineComponent({
 	},
 	props: {
 	},
-	setup(props) {
+	setup() {
 		const log = useLogger()
 		const isDarkMode = computed(() => store.state.common.isDarkMode)
 

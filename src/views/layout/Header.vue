@@ -51,7 +51,7 @@ import SearchBar from '@/components/SearchBar.vue'
 import DarkmodeSwitch from '@/components/DarkmodeSwitch.vue'
 
 import {
-	defineComponent, computed, ref,
+	defineComponent,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 
@@ -63,7 +63,7 @@ export default defineComponent({
 	},
 	props: {
 	},
-	setup(props) {
+	setup() {
 		const log = useLogger()
 
 		return {

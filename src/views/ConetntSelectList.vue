@@ -1,6 +1,6 @@
 <template>
 	<div id="conetntSelectList">
-		<div>
+		<div id="listSearch">
 			<input type="text" name="" id="">
 			<button>검색</button>
 		</div>
@@ -29,7 +29,7 @@ export default defineComponent({
 		const log = useLogger()
 
 		const contentList = ref([]) as Ref<Content[]>
-		apiClient.get(process.env.VUE_APP_API_URL + API.CONTENT_LIST)
+		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_LIST}/`)
 			.then((result) => {
 				contentList.value = result.data.list
 				log.info(contentList.value)
@@ -44,7 +44,10 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-#ConetntSelectList{
+#conetntSelectList{
 	width:100%;
+	#listSearch{
+		margin-bottom: 1em;
+	}
 }
 </style>

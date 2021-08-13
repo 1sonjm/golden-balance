@@ -34,8 +34,8 @@ apiClient.interceptors.response.use(
 
 // API_PATH
 const API = {
-	CONTENT_LIST: '/api/contentList',
-	CONTENT_DETAIL: '/api/contentDetail',
+	CONTENT_LIST: '/api/content/list',
+	CONTENT_DETAIL: '/api/content/detail',
 }
 
 export default apiClient

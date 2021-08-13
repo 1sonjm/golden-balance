@@ -1,4 +1,4 @@
-# ace-content-of-entries
+# golden-balance
 
 ## Project setup
 ```
