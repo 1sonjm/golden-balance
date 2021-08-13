@@ -15,7 +15,7 @@
 import SimpleContentForm from '@/components/content/SimpleContentForm.vue'
 
 import {
-	defineComponent, computed, ref,
+	defineComponent,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 

@@ -11,7 +11,6 @@
 				<i class="moon">
 					<img src="@/assets/icon/svg/moon.svg"/>
 				</i>
-				<!-- <div>달</div> -->
 				<div class="lineBox">
 					<div class="line"></div>
 					<div class="line"></div>
@@ -23,7 +22,7 @@
 
 <script lang="ts">
 import {
-	defineComponent, computed, ref,
+	defineComponent,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 import store from '@/store'
@@ -34,7 +33,7 @@ export default defineComponent({
 	},
 	props: {
 	},
-	setup(props) {
+	setup() {
 		const log = useLogger()
 
 		const toggleDarkMode = () => {
