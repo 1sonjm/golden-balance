@@ -6,7 +6,19 @@ export type Content = {
   showResult: boolean
   updateDate: Date
   updateUser: User
-  entryCount: number
+  viewCount: number
   compareCount: number
   thumbnailURL: string
+  entries: Entry
+}
+
+export type Entry = {
+  name: string
+  descrti: string
+  references: References
+}
+
+export type References = {
+  type: 'image' | 'video' | 'location'
+  data: string
 }

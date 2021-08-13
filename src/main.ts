@@ -3,6 +3,7 @@ import FontAwesomeIcon from '@/plugins/fontAwesomeIcon'
 import VCalendar from 'v-calendar'
 import logger from '@/plugins/logger'
 
+import { Chart, registerables } from 'chart.js'
 import { createApp } from 'vue'
 import App from './App.vue'
 import './registerServiceWorker'
@@ -25,3 +26,5 @@ app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)
 
 app.mount('#app')
+
+Chart.register(...registerables)

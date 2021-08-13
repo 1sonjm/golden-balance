@@ -7,15 +7,19 @@ import {
 	faTrash,
 	faBalanceScale,
 	faTrophy,
+	faShareAlt,
+	faChartPie,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-	faEye,
-	faTrash,
-	faEdit,
-	faTimes,
-	faBalanceScale,
+	faChartPie,
+	faShareAlt,
 	faTrophy,
+	faBalanceScale,
+	faTimes,
+	faTrash,
+	faEye,
+	faEdit,
 )
 
 export default FontAwesomeIcon

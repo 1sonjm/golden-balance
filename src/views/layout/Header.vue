@@ -15,7 +15,7 @@
 
 				<ul class="dropdown__items menuList">
 					<li><router-link to="/">Home</router-link></li>
-					<li><router-link to="/list">list</router-link></li>
+					<li><router-link to="/content/list">list</router-link></li>
 					<li><router-link to="/about">About2</router-link></li>
 					<li><router-link to="/about">About3</router-link></li>
 					<li><router-link to="/about">About4</router-link></li>

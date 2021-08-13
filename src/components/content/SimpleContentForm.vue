@@ -1,34 +1,40 @@
 <template>
-	<div
-		class="simpleContentForm"
-		@click="moveToContent">
-		<div class="thumbnail">
-			<img :src="content.thumbnailURL">
-		</div>
-		<div
-		class="contentInfo"
-		:class="{ showDescription: isShowDescription }">
-			<div class="detail">
-				<p class="title">
-					{{ content.name }}
-				</p>
-				<p
-					class="description"
-					@mouseover="overDescription(true)"
-					@mouseleave="overDescription(false)">
-					설명 {{ content.description }}
-				</p>
-				<p class="summary">
-					<span class="updateDate"><font-awesome-icon icon="edit"/>{{ formatedDate }}</span>
-					<span><font-awesome-icon icon="eye"/>{{ content.viewCount }}</span>
-					<span><font-awesome-icon icon="trophy"/>{{ content.compareCount }}</span>
-				</p>
+	<div class="simpleContentForm">
+		<section @click="moveToContent">
+			<div class="thumbnail">
+				<img :src="content.thumbnailURL">
 			</div>
-		</div>
-		<div class="buttonGroup">
-			<button>공유</button>
-			<button v-if="content.showResult">결과</button>
-		</div>
+			<div
+			class="contentInfo"
+			:class="{ showDescription: isShowDescription }">
+				<div class="detail">
+					<p class="title">
+						{{ content.name }}
+					</p>
+					<p
+						class="description"
+						@mouseover="overDescription(true)"
+						@mouseleave="overDescription(false)">
+						설명 {{ content.description }}
+					</p>
+					<p class="summary">
+						<span class="updateDate"><font-awesome-icon icon="edit"/>{{ formatedDate }}</span>
+						<span><font-awesome-icon icon="eye"/>{{ content.viewCount }}</span>
+						<span><font-awesome-icon icon="trophy"/>{{ content.compareCount }}</span>
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="buttonGroup">
+			<button @click="share">
+				<font-awesome-icon icon="share-alt"/>공유
+			</button>
+			<button
+				v-if="content.showResult"
+				@click="showResult">
+				<font-awesome-icon icon="chart-pie"/>결과
+			</button>
+		</section>
 	</div>
 </template>
 
@@ -55,7 +61,11 @@ export default defineComponent({
 		const log = useLogger()
 		const router = useRouter()
 		const moveToContent = () => {
-			router.push({ path: '/list/content', query: { id: 111 } })
+			router.push({ path: '/content/view', query: { id: 111 } })
+		}
+
+		const showResult = () => {
+			router.push({ path: '/content/result', query: { id: 111 } })
 		}
 
 		const formatedDate = computed(() => dayjs(props.content.updateDate).format('YYYY.MM.DD hh:mm'))
@@ -78,6 +88,7 @@ export default defineComponent({
 		return {
 			log,
 			moveToContent,
+			showResult,
 			formatedDate,
 			overDescription,
 			isShowDescription,
@@ -123,6 +134,9 @@ export default defineComponent({
 					flex: 1 1 0;
 					&.updateDate{
 						flex-basis: 5em;
+					}
+					svg{
+						margin: 0 0.2em 0 0;
 					}
 				}
 			}
@@ -178,7 +192,7 @@ export default defineComponent({
       span{
 				svg{
 					display: block;
-					margin: auto;
+					margin: auto !important;
 				}
       }
     }
