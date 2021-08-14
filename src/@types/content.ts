@@ -9,6 +9,7 @@ export interface Content {
   viewCount: number
   compareCount: number
   thumbnailURL: string
+  wildcard: number
 }
 export interface ContentDetail extends Entry {
   entries: Array<Entry>
