@@ -56,7 +56,7 @@ import {
 import { useLogger } from 'vue-logger-plugin'
 
 export default defineComponent({
-	name: 'template',
+	name: 'Header',
 	components: {
 		SearchBar,
 		DarkmodeSwitch,

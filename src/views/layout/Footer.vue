@@ -17,7 +17,7 @@ import { useLogger } from 'vue-logger-plugin'
 import store from '@/store'
 
 export default defineComponent({
-	name: 'template',
+	name: 'Footer',
 	components: {
 	},
 	props: {

@@ -1,6 +1,6 @@
 import { User } from '@/@types/user'
 
-export type Content = {
+export interface Content {
   id: string
   name: string
   showResult: boolean
@@ -9,16 +9,24 @@ export type Content = {
   viewCount: number
   compareCount: number
   thumbnailURL: string
-  entries: Entry
+}
+export interface ContentDetail extends Entry {
+  entries: Array<Entry>
 }
 
-export type Entry = {
+export interface Entry {
+  index?: number
   name: string
   descrti: string
   references: References
 }
 
-export type References = {
+export interface References {
   type: 'image' | 'video' | 'location'
   data: string
+}
+
+export interface EntryPair {
+  a: Entry
+  b: Entry
 }
