@@ -11,7 +11,7 @@ export interface Content {
   thumbnailURL: string
   wildcard: number
 }
-export interface ContentDetail extends Entry {
+export interface ContentDetail extends Content {
   entries: Array<Entry>
 }
 

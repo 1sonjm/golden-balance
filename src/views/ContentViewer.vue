@@ -17,13 +17,6 @@
 					:pairedRoundTotal="pairedRoundTotal"/>
 			</div>
 		</div>
-		<div
-			id="finishEntry"
-			v-if="finishEntry !== null">
-			<!-- 최초 출력시 빵빠레 사운드 + 종이 꽃가루 -->
-			최종우승
-			{{ finishEntry.name }}
-		</div>
 	</div>
 </template>
 
@@ -38,47 +31,8 @@ import {
 import { apiClient, API } from '@/plugins/axios'
 import { ContentDetail, Entry, EntryPair } from '@/@types/content'
 import { useLogger } from 'vue-logger-plugin'
-
-/*
-TODO 컨탠츠 생성시 wildcardable이 true 일때,
-최대 라운드에 부족한 수만큰 wildcard 로 설정
-14 entry일때, 4round 최대인 16(2 ** 4) etnry의
-최대 항목에서 남는 2 entry를 2 wildcard로 설정
-*/
-const getPairedRoundTotal = (entries: Array<Entry>): Array<Array<number>> => {
-	const shuffledEntries = entries.slice().sort(() => Math.random() - 0.5)
-	const resultIndex = [] as Array<Array<number>>
-
-	const entriesLength = entries.length
-	let maxRound = 1
-	while (entriesLength / (2 ** maxRound) > 0.5) {
-		resultIndex.push([] as Array<number>)
-		maxRound += 1
-	}
-
-	const maxEntryCount = (resultIndex.length + 1) * 2
-	console.log(maxEntryCount)
-	for (let index = 0; index < maxEntryCount; index += 1) {
-		const entry = shuffledEntries[index] as Entry
-		if (entry !== undefined && entry.index !== undefined) {
-			resultIndex[0].push(entry.index)
-		} else {
-			resultIndex[0].push(-1)
-		}
-	}
-
-	resultIndex.push([] as Array<number>)
-	return resultIndex
-}
-
-const findEntryByIndex = (entries: Array<Entry>, targetIndex: number): Entry => {
-	const result = entries.find((entry: Entry) => entry.index === targetIndex)
-	if (result === undefined || result === null) {
-		throw new TypeError(`can't find entry(index:${targetIndex}) in entries`)
-	}
-
-	return result
-}
+import { useRouter } from 'vue-router'
+import { getPairedRoundTotal, findEntryByIndex } from '@/composables/contentData'
 
 export default defineComponent({
 	name: 'ContentViewer',
@@ -88,6 +42,7 @@ export default defineComponent({
 	},
 	setup() {
 		const log = useLogger()
+		const router = useRouter()
 
 		const isContentReady = ref(false)
 		const content = ref({}) as Ref<ContentDetail>
@@ -141,8 +96,13 @@ export default defineComponent({
 			} else {
 				// 비교 종료
 				log.info('finish')
-				const finishEntryIndex = pairedRoundTotal.value[currntRound.value - 1][choiceCount * 2]
-				finishEntry.value = findEntryByIndex(content.value.entries, finishEntryIndex)
+				const finalRound = pairedRoundTotal.value[currntRound.value - 1]
+				const finishEntryIndex = finalRound[0] as number
+				router.push({
+					name: 'ContentResult',
+					query: { id: content.value.id },
+					params: { finishEntryIndex },
+				})
 			}
 		}
 
