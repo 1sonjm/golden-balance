@@ -16,7 +16,7 @@ export interface ContentDetail extends Entry {
 }
 
 export interface Entry {
-  index?: number
+  index: number
   name: string
   descrti: string
   references: References

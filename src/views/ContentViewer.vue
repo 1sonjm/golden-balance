@@ -2,19 +2,27 @@
 	<div id="contentViewer">
 		<div id="titleArea">
 			<div>{{ content.name }}</div>
-			<div>진행상태</div>
+			<div>Round {{ currntRound }}</div>
 			<div>공유</div>
 			<div>언어</div>
 		</div>
 		<div
 			id="compaerWrap"
-			v-if="isContentReady">
+			v-if="isContentReady && finishEntry === null">
 			<CompaerEntry
-				:entryPair="entryPair"
+				:entryPair="needSelectPair"
 				@choice="choice"/>
 			<div class="miniMapWrap">
-				<MiniMap/>
+				<MiniMap
+					:pairedRoundTotal="pairedRoundTotal"/>
 			</div>
+		</div>
+		<div
+			id="finishEntry"
+			v-if="finishEntry !== null">
+			<!-- 최초 출력시 빵빠레 사운드 + 종이 꽃가루 -->
+			최종우승
+			{{ finishEntry.name }}
 		</div>
 	</div>
 </template>
@@ -24,6 +32,7 @@ import MiniMap from '@/components/content/MiniMap.vue'
 import CompaerEntry from '@/components/content/CompaerEntry.vue'
 
 import {
+	computed,
 	defineComponent, ref, Ref,
 } from 'vue'
 import { apiClient, API } from '@/plugins/axios'
@@ -36,31 +45,39 @@ TODO 컨탠츠 생성시 wildcardable이 true 일때,
 14 entry일때, 4round 최대인 16(2 ** 4) etnry의
 최대 항목에서 남는 2 entry를 2 wildcard로 설정
 */
-const getPairedRoundTotal = (entries: Array<Entry>) => {
-	const pair = { a: {}, b: {} } as EntryPair
-	const pairedRoundTotal = [] as Array<Array<EntryPair>>
+const getPairedRoundTotal = (entries: Array<Entry>): Array<Array<number>> => {
+	const shuffledEntries = entries.slice().sort(() => Math.random() - 0.5)
+	const resultIndex = [] as Array<Array<number>>
 
 	const entriesLength = entries.length
 	let maxRound = 1
 	while (entriesLength / (2 ** maxRound) > 0.5) {
-		pairedRoundTotal.push([] as Array<EntryPair>)
+		resultIndex.push([] as Array<number>)
 		maxRound += 1
 	}
 
-	const shuffledEntries = entries.sort(() => Math.random() - 0.5)
-	const maxEntryCount = pairedRoundTotal.length * 2
+	const maxEntryCount = (resultIndex.length + 1) * 2
+	console.log(maxEntryCount)
 	for (let index = 0; index < maxEntryCount; index += 1) {
-		if (index % 2 === 1) {
-			pair.a = shuffledEntries[index]
+		const entry = shuffledEntries[index] as Entry
+		if (entry !== undefined && entry.index !== undefined) {
+			resultIndex[0].push(entry.index)
 		} else {
-			pair.b = shuffledEntries[index]
-		}
-		if (pair.a && pair.b) {
-			pairedRoundTotal[0].push(pair)
+			resultIndex[0].push(-1)
 		}
 	}
 
-	return pairedRoundTotal
+	resultIndex.push([] as Array<number>)
+	return resultIndex
+}
+
+const findEntryByIndex = (entries: Array<Entry>, targetIndex: number): Entry => {
+	const result = entries.find((entry: Entry) => entry.index === targetIndex)
+	if (result === undefined || result === null) {
+		throw new TypeError(`can't find entry(index:${targetIndex}) in entries`)
+	}
+
+	return result
 }
 
 export default defineComponent({
@@ -74,57 +91,71 @@ export default defineComponent({
 
 		const isContentReady = ref(false)
 		const content = ref({}) as Ref<ContentDetail>
-		const entryPair = ref({}) as Ref<EntryPair>
+		const pairedRoundTotal = ref([]) as Ref<Array<Array<number>>>
+		const needSelectPair = ref({}) as Ref<EntryPair>
 		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_DETAIL}/`)
 			.then((result) => {
 				content.value = result.data
 				isContentReady.value = true
+				pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
 
-				console.log('pairedRoundTotal', getPairedRoundTotal(content.value.entries))
-				// TODO 엔트리들을 엔트리페어로, 라운드별 묶음 생성 기능 구현
-				const enrtyA = content.value.entries.find((value, index:number) => index === 0)
-				const enrtyB = content.value.entries.find((value, index:number) => index === 1)
-				if (enrtyA && enrtyB) {
-					enrtyA.index = 0
-					enrtyB.index = 1
-					entryPair.value.a = enrtyA
-					entryPair.value.b = enrtyB
-				}
-				log.info(content.value)
+				// 선택할 첫 엔트리 매칭
+				const aIndex = pairedRoundTotal.value[0][0] as number
+				needSelectPair.value.a = findEntryByIndex(content.value.entries, aIndex)
+				const bIndex = pairedRoundTotal.value[0][1] as number
+				needSelectPair.value.b = findEntryByIndex(content.value.entries, bIndex)
+
+				log.info('조회된 컨텐츠', content.value)
 			})
-
-		const result: Ref<Array<Array<number>>> = ref([])
-		result.value.push([1, 2, 3, 4])
-		result.value.push([2, 4])
-		result.value.push([4])
 
 		const currntRound: Ref<number> = ref(1)
 
-		// 이벤트 - entryPair 중 선택
-		const seletedEntry = { a: {}, b: {} } as EntryPair
+		// 이벤트 - 비교 선택
 		let choiceCount = 0
-		const choice = (choiceEntryNumber: number) => {
+		const finishEntry = ref(null) as Ref<Entry | null>
+		const maxChoice = computed(() => pairedRoundTotal.value[currntRound.value - 1].length / 2)
+		const choice = (choiceEntryIndex: number) => {
 			choiceCount += 1
-			log.info(
-				'emit-choice',
-				'\nindex:', choiceEntryNumber,
-				'\nentry:', content.value.entries[choiceEntryNumber],
-			)
+			log.info('emit-choice', findEntryByIndex(content.value.entries, choiceEntryIndex))
+			pairedRoundTotal.value[currntRound.value].push(choiceEntryIndex)
 
-			if (choiceCount % 2 === 1) {
-				seletedEntry.a = content.value.entries[choiceEntryNumber]
+			// 조건 맞을때 다음 라운드로 진행
+			if (choiceCount >= maxChoice.value) {
+				log.info('next round')
+				choiceCount = 0
+				currntRound.value += 1
+			}
+
+			if (currntRound.value < pairedRoundTotal.value.length) {
+				// 다음 비교할 entryPair 전달
+				needSelectPair.value = {
+					a: findEntryByIndex(
+						content.value.entries,
+						pairedRoundTotal.value[currntRound.value - 1][choiceCount * 2],
+					),
+					b: findEntryByIndex(
+						content.value.entries,
+						pairedRoundTotal.value[currntRound.value - 1][choiceCount * 2 + 1],
+					),
+				} as EntryPair
 			} else {
-				seletedEntry.b = content.value.entries[choiceEntryNumber]
+				// 비교 종료
+				log.info('finish')
+				const finishEntryIndex = pairedRoundTotal.value[currntRound.value - 1][choiceCount * 2]
+				finishEntry.value = findEntryByIndex(content.value.entries, finishEntryIndex)
 			}
 		}
 
 		return {
 			log,
+			maxChoice,
 			isContentReady,
+			finishEntry,
 			content,
 			currntRound,
-			entryPair,
+			needSelectPair,
 			choice,
+			pairedRoundTotal,
 		}
 	},
 })
