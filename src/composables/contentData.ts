@@ -1,4 +1,5 @@
 import { Entry } from '@/@types/content'
+import { RouteLocationNormalized } from 'vue-router'
 
 /*
 TODO 컨탠츠 생성시 wildcardable이 true 일때,
@@ -39,4 +40,17 @@ export const findEntryByIndex = (entries: Array<Entry>, targetIndex: number): En
 	}
 
 	return result
+}
+
+export const getParsedDataFromRouteParams = (route: RouteLocationNormalized) => {
+	let finishEntryIndex = -1
+	if (Array.isArray(route.params.finishEntryIndex)) {
+		throw	new TypeError('finishEntryIndex type is wrong')
+	} else {
+		finishEntryIndex = Number.parseInt(route.params.finishEntryIndex, 10)
+		if (Number.isNaN(finishEntryIndex)) {
+			finishEntryIndex = -1
+		}
+	}
+	return { finishEntryIndex }
 }

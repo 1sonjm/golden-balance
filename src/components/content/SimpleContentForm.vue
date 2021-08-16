@@ -110,6 +110,7 @@ export default defineComponent({
 			width: 100%;
 			height: 100%;
 			border-radius: 0.5em;
+			border: 1px solid $color-base-border;
 		}
 	}
 	.contentInfo{

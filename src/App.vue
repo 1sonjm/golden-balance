@@ -85,9 +85,10 @@ ul, li, p{
 		display: flex;
 		flex-direction: column;
 		#contentView{
-			width: 100%;
+			width: calc(100% - 2em);
 			position: relative;
 			flex: auto;
+			margin: 0 1em;
 		}
 	}
 }

@@ -2,6 +2,7 @@ import {
 	createRouter,
 	createWebHistory,
 	RouteRecordRaw,
+	RouteLocationNormalized,
 } from 'vue-router'
 import Home from '../views/Home.vue'
 

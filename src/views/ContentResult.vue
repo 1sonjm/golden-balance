@@ -1,8 +1,14 @@
 <template>
 	<div id="contentResult">
+		<button id="share">
+			<font-awesome-icon icon="share-alt"/>
+		</button>
 		<div
 			id="finalSelectedEntry"
 			v-if="finishEntry !== null">
+			<p>최종 우승</p>
+			<p>{{ finishEntry.name }}</p>
+			<p>{{ finishEntry.description }}</p>
 			최종 선택되서 페이지 이동할경우
 			finalSelectedEntry 를 출력과
 			빵빠레 사운드 + 종이 꽃가루
@@ -16,7 +22,7 @@
 					<span>컨텐츠 명</span>
 					<span>*선택카운트 222</span>
 				</div>
-				<div>댓글?</div>
+				<div>댓글</div>
 			</div>
 		</section>
 		<section>
@@ -35,7 +41,10 @@ import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { ContentDetail, Entry } from '@/@types/content'
 import { apiClient, API } from '@/plugins/axios'
-import { findEntryByIndex } from '@/composables/contentData'
+import {
+	findEntryByIndex,
+	getParsedDataFromRouteParams,
+} from '@/composables/contentData'
 
 Chart.register(...registerables)
 
@@ -45,35 +54,30 @@ export default defineComponent({
 		DoughnutChart,
 	},
 	props: {
-		finishEntryIndex: {
-			type: Number,
-			default: -1,
-		},
 	},
 	setup(props) {
 		const log = useLogger()
 		const route = useRoute()
+		const params = getParsedDataFromRouteParams(route)
+		console.log(params.finishEntryIndex)
 
+		// 최종 라운드 선택된 entry
+		const finishEntry = ref(null) as Ref<Entry | null>
 		// 결과보여줄 컨텐츠 api 조회
 		const content = ref({}) as Ref<ContentDetail>
 		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_DETAIL}/`)
 			.then((result) => {
 				content.value = result.data
 				log.info('결과 컨텐츠', content.value)
-			})
 
-		// 최종 라운드 선택된 entry
-		const finishEntry = computed(() => {
-			if (props.finishEntryIndex !== -1) {
-				return findEntryByIndex(
-					content.value.entries,
-					props.finishEntryIndex,
-					// TODO route.params을 props에 넣거나 하여 number로 처리 가능하도록 수정
-					// route.params.finishEntryIndex,
-				)
-			}
-			return null
-		}) as Ref<Entry | null>
+				// 최종 라운드 선택된 entry
+				if (params.finishEntryIndex !== -1) {
+					finishEntry.value = findEntryByIndex(
+						content.value.entries,
+						params.finishEntryIndex,
+					)
+				}
+			})
 
 		const testData = {
 			labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
@@ -96,8 +100,13 @@ export default defineComponent({
 <style lang="scss">
 @import "@/scss/_mixin";
 
-#result{
-	display: flex;
+#contentResult{
+	position: relative;
+	#share{
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 	#chartArea{
 		max-width: 20em;
 	}
