@@ -16,9 +16,6 @@
 <script lang="ts">
 import {
 	defineComponent,
-	onMounted,
-	onBeforeMount,
-	ref,
 	computed,
 } from 'vue'
 import Header from '@/views/layout/Header.vue'
@@ -88,12 +85,12 @@ ul, li, p{
 			width: calc(100% - 2em);
 			position: relative;
 			flex: auto;
-			margin: 0 1em;
+			padding: 0 1em;
 		}
 	}
 }
 
-@media screen and (max-width: 1080px) {
+@include desktop {
 	.contentWidthLimit{
 		max-width: 720px;
 		margin: auto;

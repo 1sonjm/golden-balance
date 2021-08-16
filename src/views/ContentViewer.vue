@@ -122,11 +122,14 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "@/scss/_mixin";
+
 #contentViewer{
 	position: relative;
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
+	height: 100%;
+	width: 100%;
 	#titleArea{
 		display: flex;
 		div{

@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import {
-	defineComponent, computed, ref,
+	defineComponent, PropType, computed, ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 
@@ -14,6 +14,10 @@ export default defineComponent({
 	components: {
 	},
 	props: {
+		count: {
+			type: Object as PropType<number>,
+			require: true,
+		},
 	},
 	setup(props) {
 		const log = useLogger()

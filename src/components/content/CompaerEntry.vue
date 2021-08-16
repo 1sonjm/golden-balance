@@ -2,14 +2,14 @@
 	<div id="compaerEntry">
 		<section
 			@click="choiceEntry(entryPair.a.index)">
-			<img :src="'aaa'">
+			<ReferencesData :references="entryPair.a.references"/>
 			<div>
 				<p>{{ entryPair.a.name }}</p>
 			</div>
 		</section>
 		<section
 			@click="choiceEntry(entryPair.b.index)">
-			<img :src="'aaa'">
+			<ReferencesData :references="entryPair.b.references"/>
 			<div>
 				<p>{{ entryPair.b.name }}</p>
 			</div>
@@ -18,6 +18,8 @@
 </template>
 
 <script lang="ts">
+import ReferencesData from '@/components/content/ReferencesData.vue'
+
 import {
 	defineComponent, PropType, computed, ref, Ref,
 } from 'vue'
@@ -27,6 +29,7 @@ import { Entry, EntryPair } from '@/@types/content'
 export default defineComponent({
 	name: 'CompaerEntry',
 	components: {
+		ReferencesData,
 	},
 	props: {
 		entryPair: {
@@ -56,8 +59,10 @@ export default defineComponent({
 #compaerEntry{
 	display: flex;
 	height: 100%;
+	position: relative;
 	section{
 		flex: 1 1 auto;
+		width: 50%;
 		&:nth-child(1){
 			background-color: #fdd;
 		}
@@ -67,9 +72,12 @@ export default defineComponent({
 	}
 }
 
-@include tablet-inherit {
+@include desktop {
   #compaerEntry{
 		flex-direction: column;
+		section{
+			width: 100%;
+		}
 	}
 }
 </style>
