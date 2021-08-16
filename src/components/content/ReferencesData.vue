@@ -50,9 +50,13 @@ export default defineComponent({
 @import "@/scss/_mixin";
 
 .referencesData{
+	position: relative;
+	height: 100%;
+	width: 100%;
 	.image{
-		width: 100%;
+		object-fit: contain;
 		height: 100%;
+		width: 100%;
 	}
 }
 </style>

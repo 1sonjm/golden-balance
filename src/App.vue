@@ -66,8 +66,6 @@ ul, li, p{
 	font-family: 'MapoPeacefull', Avenir, Helvetica, Arial, sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	text-align: center;
-	color: #2c3e50;
 	position: relative;
 	margin: auto;
 	height: 100%;
@@ -78,11 +76,10 @@ ul, li, p{
 		@include brightness-toggle;
 		position: relative;
 		width: 100%;
-		min-height: 100%;
-		display: flex;
-		flex-direction: column;
+		height: 100%;
 		#contentView{
 			width: calc(100% - 2em);
+			height: calc(100% - #{$size-header-height});
 			position: relative;
 			flex: auto;
 			padding: 0 1em;

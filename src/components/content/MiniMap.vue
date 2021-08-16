@@ -2,7 +2,9 @@
 	<div
 		id="miniMap"
 		postion="absolute-top-center">
-		map
+		<img
+			src="@/assets/icon/svg/finance.svg"
+			:hover="11"/>
 	</div>
 </template>
 
@@ -32,17 +34,10 @@ export default defineComponent({
 @import "@/scss/_mixin";
 
 #miniMap{
-	background: $color-point-secondary-lighten;
+	background: rgba(0,0,0,0.5);
+	img{
+		height: 10vh;
+	}
 }
 
-@include tablet {
-  #template{
-		font-size: 1em;
-	}
-}
-@include mobile {
-  #template{
-		font-size: 1em;
-	}
-}
 </style>

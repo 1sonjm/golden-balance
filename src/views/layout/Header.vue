@@ -78,6 +78,7 @@ export default defineComponent({
 
 #header{
 	width: 100%;
+	height: $size-header-height;
 	position: relative;
 	.menu{
 		display: flex;

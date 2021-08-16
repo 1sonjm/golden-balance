@@ -131,6 +131,7 @@ export default defineComponent({
 	height: 100%;
 	width: 100%;
 	#titleArea{
+		height: 2em;
 		display: flex;
 		div{
 			flex: auto;
@@ -139,6 +140,7 @@ export default defineComponent({
 	#compaerWrap{
 		position: relative;
 		flex: 1 1 auto;
+		height: calc(100% - 2em);
 		.miniMapWrap{
 			position: absolute;
 			top: 50%;
