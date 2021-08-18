@@ -5,7 +5,7 @@
 
 <script lang="ts">
 import {
-	defineComponent, PropType, computed, ref,
+	defineComponent, PropType, computed, ref, Ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 

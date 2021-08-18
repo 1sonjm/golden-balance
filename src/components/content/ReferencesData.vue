@@ -57,6 +57,16 @@ export default defineComponent({
 		object-fit: contain;
 		height: 100%;
 		width: 100%;
+		transition: 0.5s ease filter;
+	}
+}
+#appWrap{
+	&.darkMode{
+		.referencesData{
+			.image{
+				filter: brightness(0.7);
+			}
+		}
 	}
 }
 </style>

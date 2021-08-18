@@ -12,7 +12,7 @@
 			<CompaerEntry
 				:entryPair="needSelectPair"
 				@choice="choice"/>
-			<div class="miniMapWrap">
+			<div class="miniMapAnchor">
 				<MiniMap
 					:pairedRoundTotal="pairedRoundTotal"/>
 			</div>
@@ -141,11 +141,10 @@ export default defineComponent({
 		position: relative;
 		flex: 1 1 auto;
 		height: calc(100% - 2em);
-		.miniMapWrap{
+		.miniMapAnchor{
 			position: absolute;
 			top: 50%;
 			left: 50%;
-			transform: translateX(-50%) translateY(-50%);
 		}
 	}
 }
