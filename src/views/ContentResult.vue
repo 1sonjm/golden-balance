@@ -36,14 +36,12 @@ import {
 	defineComponent, computed, ref, Ref, onMounted,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
-import { useRoute } from 'vue-router'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { ContentDetail, Entry } from '@/@types/content'
 import { apiClient, API } from '@/plugins/axios'
 import {
 	findEntryByIndex,
-	getParsedDataFromRouteParams,
 } from '@/composables/contentData'
 
 Chart.register(...registerables)
@@ -54,12 +52,13 @@ export default defineComponent({
 		DoughnutChart,
 	},
 	props: {
+		finishEntryIndex: {
+			type: Number,
+			default: -1,
+		},
 	},
 	setup(props) {
 		const log = useLogger()
-		const route = useRoute()
-		const params = getParsedDataFromRouteParams(route)
-		console.log(params.finishEntryIndex)
 
 		// 최종 라운드 선택된 entry
 		const finishEntry = ref(null) as Ref<Entry | null>
@@ -71,10 +70,10 @@ export default defineComponent({
 				log.info('결과 컨텐츠', content.value)
 
 				// 최종 라운드 선택된 entry
-				if (params.finishEntryIndex !== -1) {
+				if (props.finishEntryIndex !== -1) {
 					finishEntry.value = findEntryByIndex(
 						content.value.entries,
-						params.finishEntryIndex,
+						props.finishEntryIndex,
 					)
 				}
 			})
@@ -92,6 +91,7 @@ export default defineComponent({
 			log,
 			testData,
 			finishEntry,
+			content,
 		}
 	},
 })

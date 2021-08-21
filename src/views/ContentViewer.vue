@@ -14,7 +14,8 @@
 				@choice="choice"/>
 			<div class="miniMapAnchor">
 				<MiniMap
-					:pairedRoundTotal="pairedRoundTotal"/>
+					:contentType="contentType"
+					:histroy="pairedRoundTotal"/>
 			</div>
 		</div>
 	</div>
@@ -32,7 +33,9 @@ import { apiClient, API } from '@/plugins/axios'
 import { ContentDetail, Entry, EntryPair } from '@/@types/content'
 import { useLogger } from 'vue-logger-plugin'
 import { useRouter } from 'vue-router'
-import { getPairedRoundTotal, findEntryByIndex } from '@/composables/contentData'
+import {
+	getPairedRoundTotal, findEntryByIndex,
+} from '@/composables/contentData'
 
 export default defineComponent({
 	name: 'ContentViewer',
@@ -40,7 +43,13 @@ export default defineComponent({
 		CompaerEntry,
 		MiniMap,
 	},
-	setup() {
+	props: {
+		contentType: {
+			type: Number,
+			default: 1,
+		},
+	},
+	setup(props) {
 		const log = useLogger()
 		const router = useRouter()
 
@@ -52,7 +61,22 @@ export default defineComponent({
 			.then((result) => {
 				content.value = result.data
 				isContentReady.value = true
-				pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+
+				switch (props.contentType) {
+				default:
+				case 1:
+					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					break
+				case 2:
+					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					break
+				case 3:
+					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					break
+				case 4:
+					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					break
+				}
 
 				// 선택할 첫 엔트리 매칭
 				const aIndex = pairedRoundTotal.value[0][0] as number

@@ -1,12 +1,6 @@
 import { Entry } from '@/@types/content'
 import { RouteLocationNormalized } from 'vue-router'
 
-/*
-TODO 컨탠츠 생성시 wildcardable이 true 일때,
-최대 라운드에 부족한 수만큰 wildcard 로 설정
-14 entry일때, 4round 최대인 16(2 ** 4) etnry의
-최대 항목에서 남는 2 entry를 2 wildcard로 설정
-*/
 export const getPairedRoundTotal = (entries: Array<Entry>): Array<Array<number>> => {
 	const shuffledEntries = entries.slice().sort(() => Math.random() - 0.5)
 	const resultIndex = [] as Array<Array<number>>
@@ -19,7 +13,6 @@ export const getPairedRoundTotal = (entries: Array<Entry>): Array<Array<number>>
 	}
 
 	const maxEntryCount = (resultIndex.length + 1) * 2
-	console.log(maxEntryCount)
 	for (let index = 0; index < maxEntryCount; index += 1) {
 		const entry = shuffledEntries[index] as Entry
 		if (entry !== undefined && entry.index !== undefined) {

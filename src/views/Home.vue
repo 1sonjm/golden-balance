@@ -22,8 +22,6 @@ export default defineComponent({
 	components: {
 		HelloWorld,
 	},
-	props: {
-	},
 	setup() {
 		const log = useLogger()
 		const now = ref(dayjs())

@@ -29,10 +29,6 @@ import store from '@/store'
 
 export default defineComponent({
 	name: 'darkModeSwitch',
-	components: {
-	},
-	props: {
-	},
 	setup() {
 		const log = useLogger()
 

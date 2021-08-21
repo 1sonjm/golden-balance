@@ -7,12 +7,13 @@
 	</div>
 	<component
 		:is="MiniMapDialog"
+		:contentType="contentType"
 		@close="closeDialog"></component>
 </template>
 
 <script lang="ts">
 import {
-	defineComponent, computed, ref, Ref,
+	defineComponent, PropType, computed, ref, Ref,
 	defineAsyncComponent,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
@@ -22,6 +23,14 @@ export default defineComponent({
 	components: {
 	},
 	props: {
+		contentType: {
+			type: Number,
+			require: true,
+		},
+		histroy: {
+			type: Object as PropType<Array<Array<number>>>,
+			require: true,
+		},
 	},
 	setup(props, { emit }) {
 		const log = useLogger()

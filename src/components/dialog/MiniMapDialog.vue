@@ -1,10 +1,11 @@
 <template>
 	<BaseDialog
 		:modal="false"
+		:isTransparent="true"
 		@close="closing">
 			<div id="miniMapDialog">
-			aaaaaaaaaaaaaaaaaaaaaaaaaa
-			aaaaaaaaaaaaaaaaaaaaaaaaaa
+			asdf adfasd qe 123 412 4easdf adfasd qe 123 412 4ere r123 123r2 re r123 123r2
+			asdf adfasd qe 123 412 4ere r123 123r2 asdf adfasd qe 123 412 4ere r123 123r2
 			<canvas></canvas>
 		</div>
 	</BaseDialog>
@@ -14,7 +15,7 @@
 import BaseDialog from '@/components/dialog/BaseDialog.vue'
 
 import {
-	defineComponent, PropType, computed, ref,
+	defineComponent, computed, ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 
@@ -25,7 +26,11 @@ export default defineComponent({
 	},
 	props: {
 		count: {
-			type: Object as PropType<number>,
+			type: Number,
+			require: true,
+		},
+		contentType: {
+			type: Number,
 			require: true,
 		},
 	},

@@ -4,14 +4,18 @@
 			@click="closingNotModal"
 			:class="{ closing: isClosing }"></section>
 		<section
-			class="body"
+			class="bodyWrap"
 			:class="{ closing: isClosing }">
-			<button
-				class="close"
-				@click="closing"><font-awesome-icon icon="times-circle"/></button>
-			<div v-if="headerText">{{ headerText }}</div>
-			<div>
-				<slot>Empty Dialog Content</slot>
+			<div
+				class="body"
+				:class="{ transparent: isTransparent }">
+				<button
+					class="close"
+					@click="closing"><font-awesome-icon icon="times-circle"/></button>
+				<div v-if="headerText">{{ headerText }}</div>
+				<div>
+					<slot>Empty Dialog Content</slot>
+				</div>
 			</div>
 		</section>
 	</div>
@@ -19,7 +23,7 @@
 
 <script lang="ts">
 import {
-	defineComponent, PropType, computed, ref, Ref,
+	defineComponent, computed, ref, Ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 import { delay } from '@/composables/contentData'
@@ -30,12 +34,16 @@ export default defineComponent({
 	},
 	props: {
 		modal: {
-			type: Object as PropType<boolean>,
+			type: Boolean,
 			require: true,
 		},
 		headerText: {
-			type: Object as PropType<string>,
+			type: String,
 			require: true,
+		},
+		isTransparent: {
+			type: Boolean,
+			default: false,
 		},
 	},
 	emits: ['close'],
@@ -87,26 +95,34 @@ export default defineComponent({
 			@include animation-fade-out(0.5);
 		}
 	}
-	.body{
+	.bodyWrap{
 		position: relative;
-		background: #ddd;
+		top: 3em;
 		margin: auto;
-		width: 50%;
 		max-width: 30em;
-		border-radius: 0.5em;
 		@include animation-fade-in(0.5);
 		&.closing{
 			@include animation-fade-out(0.5);
 		}
-		.close{
-			position: absolute;
-			right: 0;
-			top: 0;
-			border: none;
-			background: none;
-			height: 1.8em;
-			width: 1.8em;
-			padding: 0;
+		.body{
+			position: relative;
+			margin: 0 1em;
+			padding: 0.5em;
+			border-radius: 0.5em;
+			&.transparent{
+				color: $color-base-light !important;
+				background-color: rgba(0,0,0,0.65) !important;
+			}
+			.close{
+				position: absolute;
+				right: 0;
+				top: 0;
+				border: none;
+				background: none;
+				height: 1.8em;
+				width: 1.8em;
+				padding: 0;
+			}
 		}
 	}
 }
@@ -127,6 +143,13 @@ export default defineComponent({
 			background-color: $color-base-dark;
 			.close{
 				color: $color-reverse-dark;
+			}
+			&.transparent{
+				color: $color-base-light;
+				background-color: $color-base-light;
+				.close{
+					color: $color-reverse-light;
+				}
 			}
 		}
 	}

@@ -10,9 +10,19 @@ export interface Content {
   compareCount: number
   thumbnailURL: string
   wildcard: number
+  type: Array<number>
 }
 export interface ContentDetail extends Content {
   entries: Array<Entry>
+}
+
+export interface ContentType {
+  type:[
+    { code: 1, name: 'Tournament' }
+    | { code: 2, name: 'LastStand' }
+    | { code: 3, name: 'SimpleBalance' }
+    | { code: 4, name: 'DetailBalance' }
+  ]
 }
 
 export interface Entry {

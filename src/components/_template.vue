@@ -15,7 +15,7 @@ export default defineComponent({
 	},
 	props: {
 		count: {
-			type: Object as PropType<number>,
+			type: Number,
 			require: true,
 		},
 	},

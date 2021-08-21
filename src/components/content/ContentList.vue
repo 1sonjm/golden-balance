@@ -23,7 +23,10 @@ export default defineComponent({
 	name: 'ContentList',
 	components: { SimpleContentForm },
 	props: {
-		contentList: Array,
+		contentList: {
+			type: Array,
+			require: true,
+		},
 	},
 	setup(props) {
 		const log = useLogger()

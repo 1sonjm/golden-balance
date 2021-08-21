@@ -61,11 +61,19 @@ export default defineComponent({
 		const log = useLogger()
 		const router = useRouter()
 		const moveToContent = () => {
-			router.push({ path: '/content/view', query: { id: props.content.id } })
+			router.push({
+				name: 'ContentViewer',
+				query: { id: props.content.id },
+				params: { contentType: 3 },
+			})
 		}
 
 		const showResult = () => {
-			router.push({ path: '/content/result', query: { id: props.content.id } })
+			router.push({
+				name: 'ContentResult',
+				query: { id: props.content.id },
+				params: { contentType: 3 },
+			})
 		}
 
 		const formatedDate = computed(() => dayjs(props.content.updateDate).format('YYYY.MM.DD hh:mm'))
