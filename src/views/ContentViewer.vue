@@ -34,7 +34,11 @@ import { ContentDetail, Entry, EntryPair } from '@/@types/content'
 import { useLogger } from 'vue-logger-plugin'
 import { useRouter } from 'vue-router'
 import {
-	getPairedRoundTotal, findEntryByIndex,
+	findEntryByIndex,
+	getTournamentEntrySet,
+	getLastStandEntrySet,
+	getSimpleBalanceEntrySet,
+	getDetailBalanceEntrySet,
 } from '@/composables/contentData'
 
 export default defineComponent({
@@ -65,16 +69,16 @@ export default defineComponent({
 				switch (props.contentType) {
 				default:
 				case 1:
-					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					pairedRoundTotal.value = getTournamentEntrySet(content.value.entries)
 					break
 				case 2:
-					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					pairedRoundTotal.value = getLastStandEntrySet(content.value.entries)
 					break
 				case 3:
-					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					pairedRoundTotal.value = getSimpleBalanceEntrySet(content.value.entries)
 					break
 				case 4:
-					pairedRoundTotal.value = getPairedRoundTotal(content.value.entries)
+					pairedRoundTotal.value = getDetailBalanceEntrySet(content.value.entries)
 					break
 				}
 

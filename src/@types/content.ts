@@ -28,7 +28,8 @@ export interface ContentType {
 export interface Entry {
   index: number
   name: string
-  descrti: string
+  description: string
+  selectedCount: number
   references: References
 }
 
