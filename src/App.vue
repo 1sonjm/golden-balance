@@ -7,6 +7,12 @@
 		<div
 			id="contentView"
 			class="contentWidthLimit">
+			<LoadingScreen/>
+			<div
+				id="loading">
+				<div>{{ loadingMessage }}</div>
+			</div>
+			{{ isLoading }}
 			<router-view/>
 		</div>
 		<Footer/>
@@ -14,16 +20,22 @@
 </template>
 
 <script lang="ts">
+import Header from '@/views/layout/Header.vue'
+import Footer from '@/views/layout/Footer.vue'
+import LoadingScreen from '@/components/LoadingScreen.vue'
+
 import {
 	defineComponent,
 	computed,
 } from 'vue'
-import Header from '@/views/layout/Header.vue'
-import Footer from '@/views/layout/Footer.vue'
 import store from '@/store'
 
 export default defineComponent({
-	components: { Header, Footer },
+	components: {
+		Header,
+		Footer,
+		LoadingScreen,
+	},
 	setup() {
 		const isDarkMode = computed(() => store.state.common.isDarkMode)
 		// onBeforeMount(async () => {
@@ -79,7 +91,7 @@ ul, li, p{
 		height: 100%;
 		#contentView{
 			width: calc(100% - 2em);
-			height: calc(100% - #{$size-header-height});
+			min-height: calc(100% - #{$size-header-height});
 			position: relative;
 			flex: auto;
 			padding: 0 1em;

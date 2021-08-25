@@ -7,14 +7,20 @@ export type Location = {
 	longitude: number,
 }
 export type Common = {
-	isLoading: boolean,
-	locale: Locale,
-	location: Location,
-	isDarkMode: boolean,
+	loading:{
+		isOn: boolean
+		message: string | undefined
+	}
+	locale: Locale
+	location: Location
+	isDarkMode: boolean
 }
 
 export const state: Common = {
-	isLoading: false,
+	loading: {
+		isOn: false,
+		message: undefined,
+	},
 	locale: Locale.ko,
 	location: {
 		latitude: 37.566280592758005,

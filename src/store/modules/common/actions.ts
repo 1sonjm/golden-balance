@@ -24,6 +24,6 @@ export const actions: ActionTree<Common, Common> & Actions = {
 		commit(MutationType.ToggleLoading, true)
 	},
 	async [ActionTypes.LoaddingOff]({ commit }) {
-		commit(MutationType.ToggleLoading, true)
+		commit(MutationType.ToggleLoading, false)
 	},
 }

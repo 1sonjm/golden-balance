@@ -4,8 +4,10 @@ import { createLogger } from 'vue-logger-plugin'
 const logger = createLogger({
 	enabled: true,
 	level: 'debug',
-	beforeHooks: [],
-	afterHooks: [],
+	beforeHooks: [
+	],
+	afterHooks: [
+	],
 })
 
 export default logger
