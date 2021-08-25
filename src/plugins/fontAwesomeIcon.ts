@@ -9,11 +9,9 @@ import {
 	faTrophy,
 	faShareAlt,
 	faChartPie,
-	faTimesCircle,
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
-	faTimesCircle,
 	faChartPie,
 	faShareAlt,
 	faTrophy,

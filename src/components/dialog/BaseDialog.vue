@@ -11,7 +11,8 @@
 				:class="{ transparent: isTransparent }">
 				<button
 					class="close"
-					@click="closing"><font-awesome-icon icon="times-circle"/></button>
+					:class="{ transparent: isTransparent }"
+					@click="closing"><font-awesome-icon icon="times"/></button>
 				<div v-if="headerText">{{ headerText }}</div>
 				<div>
 					<slot>Empty Dialog Content</slot>
@@ -109,6 +110,7 @@ export default defineComponent({
 			margin: 0 1em;
 			padding: 0.5em;
 			border-radius: 0.5em;
+			min-height: 10vh;
 			&.transparent{
 				color: $color-base-light !important;
 				background-color: rgba(0,0,0,0.65) !important;
@@ -122,6 +124,9 @@ export default defineComponent({
 				height: 1.8em;
 				width: 1.8em;
 				padding: 0;
+				&.transparent{
+					color: $color-base-light !important;
+				}
 			}
 		}
 	}

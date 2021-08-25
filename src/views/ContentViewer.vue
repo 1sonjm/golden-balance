@@ -12,17 +12,18 @@
 			<CompaerEntry
 				:entryPair="needSelectPair"
 				@choice="choice"/>
-			<div class="miniMapAnchor">
-				<MiniMap
+			<div class="historyAnchor">
+				<History
 					:contentType="contentType"
-					:histroy="pairedRoundTotal"/>
+					:contentList="content.entries"
+					:histroy="histroy"/>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import MiniMap from '@/components/content/MiniMap.vue'
+import History from '@/components/content/Histroy.vue'
 import CompaerEntry from '@/components/content/CompaerEntry.vue'
 
 import {
@@ -45,7 +46,7 @@ export default defineComponent({
 	name: 'ContentViewer',
 	components: {
 		CompaerEntry,
-		MiniMap,
+		History,
 	},
 	props: {
 		contentType: {
@@ -95,12 +96,14 @@ export default defineComponent({
 
 		// 이벤트 - 비교 선택
 		let choiceCount = 0
+		const histroy = ref([]) as Ref<Array<string>>
 		const finishEntry = ref(null) as Ref<Entry | null>
 		const maxChoice = computed(() => pairedRoundTotal.value[currntRound.value - 1].length / 2)
 		const choice = (choiceEntryIndex: number) => {
 			choiceCount += 1
 			log.info('emit-choice', findEntryByIndex(content.value.entries, choiceEntryIndex))
 			pairedRoundTotal.value[currntRound.value].push(choiceEntryIndex)
+			histroy.value.push(content.value.entries[choiceEntryIndex].name)
 
 			// 조건 맞을때 다음 라운드로 진행
 			if (choiceCount >= maxChoice.value) {
@@ -144,6 +147,7 @@ export default defineComponent({
 			needSelectPair,
 			choice,
 			pairedRoundTotal,
+			histroy,
 		}
 	},
 })
@@ -169,7 +173,7 @@ export default defineComponent({
 		position: relative;
 		flex: 1 1 auto;
 		height: calc(100% - 2em);
-		.miniMapAnchor{
+		.historyAnchor{
 			position: absolute;
 			top: 50%;
 			left: 50%;

@@ -1,13 +1,14 @@
 <template>
 	<div
-		id="miniMap"
+		id="history"
 		@click="showMap">
 		<img
 			src="@/assets/icon/svg/finance.svg"/>
 	</div>
 	<component
-		:is="MiniMapDialog"
+		:is="HistoryDialog"
 		:contentType="contentType"
+		:histroy="histroy"
 		@close="closeDialog"></component>
 </template>
 
@@ -17,9 +18,10 @@ import {
 	defineAsyncComponent,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
+import { Entry } from '@/@types/content'
 
 export default defineComponent({
-	name: 'MiniMap',
+	name: 'History',
 	components: {
 	},
 	props: {
@@ -27,36 +29,42 @@ export default defineComponent({
 			type: Number,
 			require: true,
 		},
+		contentList: {
+			type: Object as PropType<Array<Entry>>,
+			require: true,
+		},
 		histroy: {
-			type: Object as PropType<Array<Array<number>>>,
+			type: Object as PropType<Array<string>>,
 			require: true,
 		},
 	},
 	setup(props, { emit }) {
 		const log = useLogger()
 
-		const isShowMiniMap = ref(false) as Ref<boolean>
-		const MiniMapDialog = computed(() => {
-			if (isShowMiniMap.value) {
-				return defineAsyncComponent(() => import('@/components/dialog/MiniMapDialog.vue'))
+		const isShowHistory = ref(false) as Ref<boolean>
+		const HistoryDialog = computed(() => {
+			if (isShowHistory.value) {
+				return defineAsyncComponent(() => import('@/components/dialog/HistroyDialog.vue'))
 			}
 			return ''
 		})
 
+		// contentList 사용하여 선택 기록을 표시
+
 		const closeDialog = () => {
-			isShowMiniMap.value = false
+			isShowHistory.value = false
 		}
 
 		const showMap = () => {
 			log.warn('미니맵 팝업')
-			isShowMiniMap.value = true
+			isShowHistory.value = true
 		}
 
 		return {
 			log,
 			showMap,
-			isShowMiniMap,
-			MiniMapDialog,
+			isShowHistory,
+			HistoryDialog,
 			closeDialog,
 		}
 	},
@@ -66,7 +74,7 @@ export default defineComponent({
 <style lang="scss">
 @import "@/scss/_mixin";
 
-#miniMap{
+#history{
 	position: absolute;
 	left: calc(50% - 5vh - 1.2em);
 	top: calc(50% - 5vh - 1.2em);

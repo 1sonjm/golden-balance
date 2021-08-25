@@ -2,7 +2,7 @@
 	<div id="ContentEditor">
 		<TitleArea :editable="true"/>
 		<div>
-			<MiniMap/>
+			<History/>
 			<CompaerContent/>
 		</div>
 	</div>

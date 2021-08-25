@@ -2,11 +2,14 @@
 	<BaseDialog
 		:modal="false"
 		:isTransparent="true"
+		:headerText="'선택 기록'"
 		@close="closing">
-			<div id="miniMapDialog">
-			asdf adfasd qe 123 412 4easdf adfasd qe 123 412 4ere r123 123r2 re r123 123r2
-			asdf adfasd qe 123 412 4ere r123 123r2 asdf adfasd qe 123 412 4ere r123 123r2
-			<canvas></canvas>
+		<div id="historyDialog">
+			<div
+				v-for="(entryName, index) in histroy"
+				:key="entryName">
+				{{ index }}: {{ entryName }}
+			</div>
 		</div>
 	</BaseDialog>
 </template>
@@ -15,12 +18,12 @@
 import BaseDialog from '@/components/dialog/BaseDialog.vue'
 
 import {
-	defineComponent, computed, ref,
+	defineComponent, PropType, computed, ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 
 export default defineComponent({
-	name: 'MiniMapDialog',
+	name: 'HistoryDialog',
 	components: {
 		BaseDialog,
 	},
@@ -31,6 +34,10 @@ export default defineComponent({
 		},
 		contentType: {
 			type: Number,
+			require: true,
+		},
+		histroy: {
+			type: Object as PropType<Array<string>>,
 			require: true,
 		},
 	},
@@ -52,16 +59,18 @@ export default defineComponent({
 <style lang="scss">
 @import "@/scss/_mixin";
 
-#miniMapDialog{
+#historyDialog{
+	max-height: 40vh;
+	overflow: auto;
 }
 
 @include tablet {
-  #miniMapDialog{
+  #historyDialog{
 		font-size: 1em;
 	}
 }
 @include mobile {
-  #miniMapDialog{
+  #historyDialog{
 		font-size: 1em;
 	}
 }

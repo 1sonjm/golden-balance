@@ -64,7 +64,7 @@ export default defineComponent({
 			router.push({
 				name: 'ContentViewer',
 				query: { id: props.content.id },
-				params: { contentType: 3 },
+				params: { contentType: props.content.type },
 			})
 		}
 
@@ -72,7 +72,7 @@ export default defineComponent({
 			router.push({
 				name: 'ContentResult',
 				query: { id: props.content.id },
-				params: { contentType: 3 },
+				params: { contentType: props.content.type },
 			})
 		}
 
