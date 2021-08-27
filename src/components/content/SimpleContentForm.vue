@@ -212,20 +212,24 @@ export default defineComponent({
 	}
 }
 @include tablet-inherit {
+.simpleContentForm{
   .contentInfo{
-    .summary{
-      span{
-				svg{
-					display: block;
-					margin: auto !important;
+		.detail{
+			.summary{
+				span{
+					svg{
+						display: block;
+						margin: auto;
+					}
 				}
-      }
-    }
-  }
+			}
+		}
+	}
 	.buttonGroup{
 		position: relative;
 		top: unset;
 		right: unset;
 	}
+}
 }
 </style>

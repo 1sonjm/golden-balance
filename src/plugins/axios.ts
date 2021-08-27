@@ -15,7 +15,7 @@ const apiClient: AxiosInstance = axios.create({
 
 apiClient.interceptors.request.use(
 	(config) => {
-		store.commit('showLoadingWithMessage', 'API 요청중 입니다..')
+		store.commit('showLoadingWithMessage', '자료 요청중 입니다..')
 		return config
 	},
 	(error) => Promise.reject(error),

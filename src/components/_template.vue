@@ -32,12 +32,7 @@ export default defineComponent({
 <style lang="scss">
 @import "@/scss/_mixin";
 
-@include tablet {
-  #template{
-		font-size: 1em;
-	}
-}
-@include mobile {
+@include tablet-inherit {
   #template{
 		font-size: 1em;
 	}

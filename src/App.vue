@@ -88,10 +88,10 @@ ul, li, p{
 		@include brightness-toggle;
 		position: relative;
 		width: 100%;
-		height: 100%;
+		min-height: 100vh;
 		#contentView{
 			width: calc(100% - 2em);
-			min-height: calc(100% - #{$size-header-height});
+			min-height: calc(100vh - #{$size-header-height});
 			position: relative;
 			flex: auto;
 			padding: 0 1em;
