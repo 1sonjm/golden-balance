@@ -14,9 +14,8 @@ import forrmatDate from '@/composables/forrmatDate'
 import CommonService from '@/service/CommonService'
 
 export default defineComponent({
-	name: 'EditModal',
+	name: 'SearchBar',
 	props: {
-		id: { type: Number, required: true },
 	},
 	setup(props) {
 		console.log(props)

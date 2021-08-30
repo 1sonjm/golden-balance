@@ -11,6 +11,8 @@
 			<i class="boxSide front"></i>
 			<i class="boxTop"></i>
 		</div>
+		{{ t('hello') }}<br>
+		{{ t('test') }}
 		<HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
 		<HelloWorld msg="Welcome to Your Vue.js + 2222 App"/>
 		<HelloWorld msg="Welcome to Your Vue.js + 333 App"/>
@@ -25,6 +27,7 @@ import {
 	defineComponent, ref,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
+import { useI18n } from 'vue-i18n'
 import dayjs from 'dayjs'
 
 export default defineComponent({
@@ -34,10 +37,12 @@ export default defineComponent({
 	},
 	setup() {
 		const log = useLogger()
+		const { t } = useI18n()
 		const now = ref(dayjs())
 
 		return {
 			log,
+			t,
 			now,
 		}
 	},

@@ -8,11 +8,6 @@
 			id="contentView"
 			class="contentWidthLimit">
 			<LoadingScreen/>
-			<div
-				id="loading">
-				<div>{{ loadingMessage }}</div>
-			</div>
-			{{ isLoading }}
 			<router-view/>
 		</div>
 		<Footer/>

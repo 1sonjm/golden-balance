@@ -49,9 +49,13 @@ export default defineComponent({
 		History,
 	},
 	props: {
+		id: {
+			type: Number,
+			required: true,
+		},
 		contentType: {
 			type: Number,
-			default: 1,
+			required: true,
 		},
 	},
 	setup(props) {
@@ -62,7 +66,11 @@ export default defineComponent({
 		const content = ref({}) as Ref<ContentDetail>
 		const pairedRoundTotal = ref([]) as Ref<Array<Array<number>>>
 		const needSelectPair = ref({}) as Ref<EntryPair>
-		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_DETAIL}/`)
+		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_DETAIL}/`, {
+			params: {
+				id: props.id,
+			},
+		})
 			.then((result) => {
 				content.value = result.data
 				isContentReady.value = true
@@ -103,7 +111,7 @@ export default defineComponent({
 			choiceCount += 1
 			log.info('emit-choice', findEntryByIndex(content.value.entries, choiceEntryIndex))
 			pairedRoundTotal.value[currntRound.value].push(choiceEntryIndex)
-			histroy.value.push(content.value.entries[choiceEntryIndex].name)
+			histroy.value.push(content.value.entries[choiceEntryIndex - 1].name)
 
 			// 조건 맞을때 다음 라운드로 진행
 			if (choiceCount >= maxChoice.value) {
@@ -178,6 +186,12 @@ export default defineComponent({
 			top: 50%;
 			left: 50%;
 		}
+	}
+}
+
+@include tablet-inherit{
+	#contentViewer{
+		height: calc(100vh - #{$size-header-height});
 	}
 }
 </style>

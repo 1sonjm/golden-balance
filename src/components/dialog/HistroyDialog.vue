@@ -8,7 +8,7 @@
 			<div
 				v-for="(entryName, index) in histroy"
 				:key="entryName">
-				{{ index }}: {{ entryName }}
+				{{ index + 1 }}. {{ entryName }}
 			</div>
 		</div>
 	</BaseDialog>

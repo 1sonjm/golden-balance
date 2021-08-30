@@ -36,6 +36,7 @@ import {
 	defineComponent, computed, ref, Ref, onMounted,
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
+import { useRoute } from 'vue-router'
 import { DoughnutChart } from 'vue-chart-3'
 import { Chart, registerables } from 'chart.js'
 import { ContentDetail, Entry } from '@/@types/content'
@@ -59,12 +60,18 @@ export default defineComponent({
 	},
 	setup(props) {
 		const log = useLogger()
+		const route = useRoute()
 
 		// 최종 라운드 선택된 entry
 		const finishEntry = ref(null) as Ref<Entry | null>
 		// 결과보여줄 컨텐츠 api 조회
 		const content = ref({}) as Ref<ContentDetail>
-		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_DETAIL}/`)
+		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_RESULT}/`, {
+			params: {
+				id: route.query.id,
+				finishEntryIndex: props.finishEntryIndex !== -1 ? findEntryByIndex : undefined,
+			},
+		})
 			.then((result) => {
 				content.value = result.data
 				log.info('결과 컨텐츠', content.value)

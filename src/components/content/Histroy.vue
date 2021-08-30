@@ -13,6 +13,8 @@
 </template>
 
 <script lang="ts">
+import HistroyDialog from '@/components/dialog/HistroyDialog.vue'
+
 import {
 	defineComponent, PropType, computed, ref, Ref,
 	defineAsyncComponent,
@@ -44,9 +46,9 @@ export default defineComponent({
 		const isShowHistory = ref(false) as Ref<boolean>
 		const HistoryDialog = computed(() => {
 			if (isShowHistory.value) {
-				return defineAsyncComponent(() => import('@/components/dialog/HistroyDialog.vue'))
+				return HistroyDialog
 			}
-			return ''
+			return undefined
 		})
 
 		// contentList 사용하여 선택 기록을 표시
@@ -56,7 +58,6 @@ export default defineComponent({
 		}
 
 		const showMap = () => {
-			log.warn('미니맵 팝업')
 			isShowHistory.value = true
 		}
 

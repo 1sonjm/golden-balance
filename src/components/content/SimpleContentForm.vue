@@ -63,16 +63,20 @@ export default defineComponent({
 		const moveToContent = () => {
 			router.push({
 				name: 'ContentViewer',
-				query: { id: props.content.id },
-				params: { contentType: props.content.type },
+				query: {
+					id: props.content.id,
+					contentType: props.content.type,
+				},
 			})
 		}
 
 		const showResult = () => {
 			router.push({
 				name: 'ContentResult',
-				query: { id: props.content.id },
-				params: { contentType: props.content.type },
+				query: {
+					id: props.content.id,
+					contentType: props.content.type,
+				},
 			})
 		}
 
