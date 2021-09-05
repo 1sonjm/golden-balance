@@ -15,7 +15,7 @@
 		</div>
 		<section id="result">
 			<div id="chartArea">
-				<DoughnutChart :chartData="testData"/>
+			<DoughnutChart v-bind="doughnutChartProps"/>
 			</div>
 			<div>
 				<div>
@@ -37,8 +37,13 @@ import {
 } from 'vue'
 import { useLogger } from 'vue-logger-plugin'
 import { useRoute } from 'vue-router'
-import { DoughnutChart } from 'vue-chart-3'
-import { Chart, registerables } from 'chart.js'
+import { useDoughnutChart, DoughnutChart } from 'vue-chart-3'
+import {
+	Chart,
+	ChartData,
+	ChartOptions,
+	registerables,
+} from 'chart.js'
 import { ContentDetail, Entry } from '@/@types/content'
 import { apiClient, API } from '@/plugins/axios'
 import {
@@ -65,7 +70,7 @@ export default defineComponent({
 		// 최종 라운드 선택된 entry
 		const finishEntry = ref(null) as Ref<Entry | null>
 		// 결과보여줄 컨텐츠 api 조회
-		const content = ref({}) as Ref<ContentDetail>
+		const content = ref(undefined) as Ref<ContentDetail | undefined>
 		apiClient.get(`${process.env.VUE_APP_API_URL + API.CONTENT_RESULT}/`, {
 			params: {
 				id: route.query.id,
@@ -79,26 +84,71 @@ export default defineComponent({
 				// 최종 라운드 선택된 entry
 				if (props.finishEntryIndex !== -1) {
 					finishEntry.value = findEntryByIndex(
-						content.value.entries,
+						result.data.entries,
 						props.finishEntryIndex,
 					)
 				}
 			})
 
-		const testData = {
-			labels: ['Paris', 'Nîmes', 'Toulon', 'Perpignan', 'Autre'],
-			datasets: [
-				{
-					data: [30, 40, 60, 70, 5],
-					backgroundColor: ['#77CEFF', '#0079AF', '#123E6B', '#97B0C4', '#A5C8ED'],
+		// 차트 데이터
+		const labels = [] as Array<string>
+		const datas = [] as Array<number>
+		const asdf = computed(() => {
+			if (content.value !== undefined) {
+				content.value.entries.forEach((entry: Entry) => {
+					labels.push(entry.name)
+					datas.push(entry.selectedCount)
+				})
+			}
+			return { labels, datas }
+		})
+
+		const testData = computed<ChartData<'doughnut'>>(() => {
+			return {
+				labels: asdf.value.labels,
+				datasets: [
+					{
+						data: asdf.value.datas,
+						backgroundColor: [
+							'#77CEFF',
+							'#0079AF',
+							'#123E6B',
+							'#97B0C4',
+							'#A5C8ED',
+						],
+					},
+				],
+			}
+		})
+
+		const options = computed<ChartOptions<'doughnut'>>(() => {
+			return {
+				scales: {
+					myScale: {
+						type: 'logarithmic',
+					},
 				},
-			],
-		}
+				plugins: {
+					title: {
+						display: true,
+						text: 'Chart.js Doughnut Chart',
+					},
+				},
+			}
+		})
+
+		const { doughnutChartProps, doughnutChartRef } = useDoughnutChart({
+			chartData: testData,
+			options,
+		})
+
 		return {
 			log,
 			testData,
 			finishEntry,
 			content,
+			doughnutChartProps,
+			doughnutChartRef,
 		}
 	},
 })

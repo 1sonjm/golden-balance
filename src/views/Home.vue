@@ -2,10 +2,10 @@
 	<div id="home">
 		<img alt="Vue logo" src="../assets/logo.png">
 		<div class="ani">
+			<i class="boxSide back"></i>
 			<i
 				class="cat">
 			</i>
-			<i class="boxSide back"></i>
 			<i class="boxSide left"></i>
 			<i class="boxSide right"></i>
 			<i class="boxSide front"></i>
